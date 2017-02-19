@@ -35,3 +35,4 @@ C:\Users\dead_\Documents\Visual Studio 2015\Projects\PulseEngine\PulseDemoGame\P
 C:\Users\dead_\Documents\Visual Studio 2015\Projects\PulseEngine\PulseDemoGame\PulseDemoGame\obj\x86\Debug\PulseDemoGame.exe
 C:\Users\dead_\Documents\Visual Studio 2015\Projects\PulseEngine\PulseDemoGame\PulseDemoGame\obj\x86\Debug\PulseDemoGame.pdb
 C:\Users\dead_\Documents\Visual Studio 2015\Projects\PulseEngine\PulseDemoGame\PulseDemoGame\bin\x86\Debug\Content\sprite1.xnb
+C:\Users\Richard\Documents\Visual Studio 2015\PulseDemoGame\PulseDemoGame\PulseDemoGame\bin\x86\Debug\Content\sprite1.xnb

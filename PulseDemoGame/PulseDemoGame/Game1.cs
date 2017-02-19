@@ -41,6 +41,8 @@ namespace PulseDemoGame
         {
             // TODO: Add your initialization logic here
             sprite = new peSprite(this.Content);
+            sprite.Position = new Vector2(100, 100);
+
             base.Initialize();
         }
 
