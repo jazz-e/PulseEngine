@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PulseDemoGame", "PulseDemoGame\PulseDemoGame\PulseDemoGame.csproj", "{42C89D5E-08AC-4C2B-9C6A-30CE9E5F816C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PulseDemoGameContent", "PulseDemoGame\PulseDemoGameContent\PulseDemoGameContent.contentproj", "{E01BA1B1-E278-4844-B79B-B850D0B0CC65}"
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "PulseDemoGameContent", "PulseDemoGame\PulseDemoGameContent\PulseDemoGameContent.contentproj", "{E01BA1B1-E278-4844-B79B-B850D0B0CC65}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PulseEngine2", "PulseEngine2\PulseEngine2.csproj", "{1A07A344-F62C-47C2-BDD1-D9F86977940E}"
 EndProject
