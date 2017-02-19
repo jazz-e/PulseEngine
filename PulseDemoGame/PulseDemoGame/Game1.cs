@@ -22,6 +22,9 @@ namespace PulseDemoGame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        PulseEngine2.Objects.Sprite.peSprite sprite;
+
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -37,7 +40,7 @@ namespace PulseDemoGame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            sprite = new peSprite(this.Content);
             base.Initialize();
         }
 
@@ -51,6 +54,8 @@ namespace PulseDemoGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            sprite.Load("sprite1");
+
         }
 
         /// <summary>
@@ -87,6 +92,9 @@ namespace PulseDemoGame
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            sprite.Draw(spriteBatch);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }

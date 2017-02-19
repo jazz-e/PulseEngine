@@ -29,7 +29,8 @@ namespace PulseEngine2.Objects.Sprite
         public peSprite(ContentManager content)
         {
             _content = content;
-            Visible = true; 
+            Visible = true;
+            Scale = 1.0f;
         }
         public virtual bool Load(string assetName)
         {
