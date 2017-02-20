@@ -81,6 +81,7 @@ namespace PulseDemoGame
                 this.Exit();
 
             // TODO: Add your update logic here
+            
 
             base.Update(gameTime);
         }

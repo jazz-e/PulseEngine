@@ -1,2 +1,0 @@
-C:\Users\Richard\Documents\Visual Studio 2015\PulseDemoGame\PulseDemoGame\PulseDemoGameContent\obj\x86\Debug\PulseDemoGameContent.contentprojResolveAssemblyReference.cache
-C:\Users\dead_\Documents\Visual Studio 2015\Projects\PulseEngine\PulseDemoGame\PulseDemoGameContent\obj\x86\Debug\PulseDemoGameContent.contentprojResolveAssemblyReference.cache
