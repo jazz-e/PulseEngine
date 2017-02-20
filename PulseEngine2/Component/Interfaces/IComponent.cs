@@ -10,5 +10,6 @@ namespace PulseEngine2.Component
        T GetOwner();
 
         void Initialise(T sender);
+        void AttachTo(T sender);
     }
 }

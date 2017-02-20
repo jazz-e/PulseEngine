@@ -11,6 +11,8 @@ namespace PulseEngine2.Objects.Sprite
 {
     public class peSprite
     {
+        
+        
         //Private Members - Attributes.
 
         Texture2D _image; //Reference to Image Asset
@@ -36,6 +38,7 @@ namespace PulseEngine2.Objects.Sprite
         {
             _image = 
                 _content.Load<Texture2D>(assetName);
+            
 
             if (_image != null)
                 return true;
@@ -45,7 +48,13 @@ namespace PulseEngine2.Objects.Sprite
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             if (Visible)
-                spriteBatch.Draw(_image, Position, null, Color.White, RotationAngle, Origin, Scale, SpriteEffects.None, ZPlane);
+                spriteBatch.Draw(_image, 
+                    Position, null, Color.White, 
+                    RotationAngle, Origin, Scale, 
+                    SpriteEffects.None, ZPlane);
+        }
+        public void Update(GameTime gameTime)
+        {
         }
     }
 }

@@ -1,2 +1,13 @@
 PulseDemoGame/PulseDemoGameContent/obj/x86/Debug/PulseDemoGameContent.contentproj.FileListAbsolute.txt
 *.txt
+PulseEngine2/bin/x86/Debug/
+PulseEngine2/obj/x86/Debug/
+PulseDemoGame/PulseDemoGame/bin/x86/Debug/PulseDemoGame.exe
+PulseDemoGame/PulseDemoGame/bin/x86/Debug/PulseDemoGame.pdb
+PulseDemoGame/PulseDemoGame/bin/x86/Debug/PulseEngine2.dll
+PulseDemoGame/PulseDemoGame/bin/x86/Debug/PulseEngine2.pdb
+PulseDemoGame/PulseDemoGame/obj/x86/Debug/PulseDemoGame.csprojResolveAssemblyReference.cache
+PulseDemoGame/PulseDemoGame/obj/x86/Debug/PulseDemoGame.exe
+PulseDemoGame/PulseDemoGame/obj/x86/Debug/PulseDemoGame.pdb
+PulseDemoGame/PulseDemoGameContent/obj/x86/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+PulseDemoGame/PulseDemoGameContent/obj/x86/Debug/PulseDemoGameContent.contentprojResolveAssemblyReference.cache

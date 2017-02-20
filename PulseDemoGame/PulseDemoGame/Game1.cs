@@ -23,7 +23,7 @@ namespace PulseDemoGame
         SpriteBatch spriteBatch;
 
         PulseEngine2.Objects.Sprite.peSprite sprite;
-
+        PulseEngine2.Objects.Sprite.pePawn pawn;
 
         public Game1()
         {
@@ -42,7 +42,9 @@ namespace PulseDemoGame
             // TODO: Add your initialization logic here
             sprite = new peSprite(this.Content);
             sprite.Position = new Vector2(100, 100);
-
+            
+            
+            
             base.Initialize();
         }
 
@@ -81,6 +83,7 @@ namespace PulseDemoGame
                 this.Exit();
 
             // TODO: Add your update logic here
+            sprite.Update(gameTime);
             
 
             base.Update(gameTime);
