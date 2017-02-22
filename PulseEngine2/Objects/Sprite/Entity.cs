@@ -13,7 +13,7 @@ namespace PulseEngine.Objects.Sprite
 {
     public class Entity 
     { 
-       
+        
         //Private Members - Attributes.
 
         Texture2D _image; //Reference to Image Asset
@@ -53,7 +53,7 @@ namespace PulseEngine.Objects.Sprite
         {
             if(assetName != null)
             _image = 
-                Content.Load<Texture2D>(AssetName);
+                Content.Load<Texture2D>(assetName);
 
             if (_image != null)
             {

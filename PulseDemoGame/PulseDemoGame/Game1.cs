@@ -34,7 +34,7 @@ namespace PulseDemoGame
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
+        /// This is where it can query for ay required services and load any non-graphic
         /// related content.  Calling base.Initialize will enumerate through any components
         /// and initialize them as well.
         /// </summary>
@@ -42,8 +42,7 @@ namespace PulseDemoGame
         {
             // TODO: Add your initialization logic here
             sprite = new Entity();
-            sprite.AssetName = "sprite1";
-
+           
             base.Initialize();
         }
         
@@ -60,7 +59,7 @@ namespace PulseDemoGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            sprite.Load(this.Content);
+            sprite.Load(this.Content, "sprite1");
 
             spriteFont = this.Content.Load<SpriteFont>("SpriteFont1");
            

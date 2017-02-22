@@ -59,12 +59,16 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Component\Collision\BBCollision.cs" />
     <Compile Include="Component\Collision\BoundingBox.cs" />
+    <Compile Include="Component\Interfaces\IEntity.cs" />
+    <Compile Include="Component\Interfaces\IEntityComponent.cs" />
+    <Compile Include="Component\Interfaces\IEntityDrawComponent.cs" />
+    <Compile Include="Component\Interfaces\IEntityUpdateComponent.cs" />
     <Compile Include="Objects\Sprite\Entity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Component\Interfaces\" />
     <Folder Include="Component\Movement\" />
     <Folder Include="Display\Level\" />
     <Folder Include="Display\Menu\" />

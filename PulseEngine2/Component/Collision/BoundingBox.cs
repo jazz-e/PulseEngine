@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using PulseEngine.Objects.Sprite;
+using PulseEngine.Component.Interfaces;
 
 namespace PulseEngine.Component.Collision
 {
-    public class BoundingBox 
+    public class BoundingBox : IEntity, IEntityUpdateComponent
     {
         public int OffsetLeft { get; set; }
         public int OffsetRight { get; set; }
@@ -18,6 +19,10 @@ namespace PulseEngine.Component.Collision
 
         Entity _parent;
 
+        public Entity GetOwner()
+        {
+            return _parent;
+        } 
         public void AttachTo(Entity actor)
         {
             _parent = actor;
