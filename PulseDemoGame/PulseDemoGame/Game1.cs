@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using PulseEngine;
+using PulseEngine.Component.Collision;
 using PulseEngine.Component.Movement;
 using PulseEngine.Objects.Sprite;
 
@@ -24,11 +25,21 @@ namespace PulseDemoGame
         SpriteBatch spriteBatch;
 
         EntityNode en = new EntityNode();
-
+        
         Entity sprite;
+        Entity sprite2; 
 
         SpriteFont spriteFont;
         PlayerController pc = new PlayerController();
+
+        PulseEngine.Component.Collision.BoundingBox bb1 
+            = new PulseEngine.Component.Collision.BoundingBox();
+        PulseEngine.Component.Collision.BoundingBox bb2
+            = new PulseEngine.Component.Collision.BoundingBox();
+        PulseEngine.Component.Collision.BBCollision bbc =
+            new PulseEngine.Component.Collision.BBCollision();
+
+        ScreenCollision sc = new ScreenCollision(0,0, 600, 400);
 
         public Game1()
         {
@@ -46,9 +57,11 @@ namespace PulseDemoGame
         {
             // TODO: Add your initialization logic here
             sprite = new Entity();
-           
+            sprite2 = new Entity();
 
             en.AttachNode(sprite);
+            en.AttachNode(sprite2);
+
             pc.AttachTo(sprite);
             
 
@@ -56,12 +69,44 @@ namespace PulseDemoGame
             pc.AddKeyBinding(Keys.A, MovementState.Left);
             pc.AddKeyBinding(Keys.D, MovementState.Right);
             pc.Pressed += Pc_Pressed;
-
+            
             pc.Initialise();
-            pc.Speed = 10.0f;
+            pc.Speed = 3.0f;
             sprite.AddComponet(pc);
 
+            sprite.AddComponet(bb1);
+            sprite2.AddComponet(bb2);
+
+            bb1.AttachTo(sprite);
+            bb2.AttachTo(sprite2);
+
+            bbc.AttachTo(sprite);
+            sprite.AddComponet(bbc);
+            bbc.Overlap += Bbc_Overlap;
+
+            sc.AttachTo(sprite);
+            sprite.AddComponet(sc);
+            sc.OffScreen += Sc_OffScreen;
+            sc.LeavingScreen += Sc_LeavingScreen;
+
+
             base.Initialize();
+        }
+
+        private void Sc_LeavingScreen(object sender, ScreenAreaArgs e)
+        {
+            this.Window.Title = "Leaving";
+        }
+
+        private void Sc_OffScreen(object sender, ScreenAreaArgs e)
+        {
+            this.Window.Title = e.LeftScreen.ToString();
+        }
+
+        private void Bbc_Overlap(object sender, PulseEngine.Component.Collision.CollisionEventArgs e)
+        {
+            if (e.CollidedWith != null)
+                this.Exit();
         }
 
         private void Pc_Pressed(object sender, PressedArgs e)
@@ -89,6 +134,8 @@ namespace PulseDemoGame
 
             // TODO: use this.Content to load your game content here
             sprite.AssetName = "sprite1";
+            sprite2.AssetName = "sprite1";
+
             en.Load(this.Content);           
             
 
@@ -117,7 +164,16 @@ namespace PulseDemoGame
                 this.Exit();
 
             // TODO: Add your update logic here
+            sprite2.X = 300;
+            bb1.Update(gameTime);
+            bb2.Update(gameTime);
+            bbc.OtherBox = bb2;
+
+
+            bbc.Update(gameTime);
+            
             pc.Update(gameTime);
+            sc.Update(gameTime);
 
             base.Update(gameTime);
         }

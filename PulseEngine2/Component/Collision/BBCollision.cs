@@ -10,11 +10,14 @@ namespace PulseEngine.Component.Collision
 {
     public class CollisionEventArgs : EventArgs
     {
-        
+        public Entity CollidedWith { get; set; }
     }
+
+    public delegate void OnBoxOverlap(object sender, CollisionEventArgs e);
+
     public class BBCollision : IEntityUpdateComponent
     {
-        public EventHandler Overlap;
+        public event OnBoxOverlap Overlap;
           
         Entity _parent;
 
@@ -29,16 +32,19 @@ namespace PulseEngine.Component.Collision
         }
         public void Update(GameTime gameTime)
         {
-            
+            if(_parent !=null)
+            if(_parent.UpdateComponents.Count>0)
+            foreach(IEntityUpdateComponent entity in _parent.UpdateComponents)
+               if(entity is BoundingBox)
+                    {
+                        if(((BoundingBox)entity).Box.Intersects(OtherBox.Box))
+                        {
+                            CollisionEventArgs _args = new CollisionEventArgs();
+                            _args.CollidedWith = OtherBox.GetOwner();
+                        if (Overlap != null)
+                            Overlap(this, _args);
+                        }
+                    }
         }
-        protected virtual void OnOverlap(CollisionEventArgs e)
-        {
-            EventHandler handler = Overlap;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
-        }
-
     }
 }
