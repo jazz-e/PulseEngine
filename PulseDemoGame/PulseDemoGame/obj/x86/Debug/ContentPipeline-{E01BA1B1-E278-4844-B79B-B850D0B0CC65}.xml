@@ -10,6 +10,15 @@
       <Output>C:\Users\Richard\Documents\Visual Studio 2015\PulseDemoGame\PulseDemoGame\PulseDemoGame\bin\x86\Debug\Content\sprite1.xnb</Output>
       <Time>2017-02-19T13:27:44.4889714+00:00</Time>
     </Item>
+    <Item>
+      <Source>SpriteFont1.spritefont</Source>
+      <Name>SpriteFont1</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Richard\Documents\Visual Studio 2015\PulseDemoGame\PulseDemoGame\PulseDemoGame\bin\x86\Debug\Content\SpriteFont1.xnb</Output>
+      <Time>2017-02-21T19:36:34.7224265+00:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{E01BA1B1-E278-4844-B79B-B850D0B0CC65}</ContentProjectGUID>

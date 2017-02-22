@@ -1,0 +1,44 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using PulseEngine.Component.Interfaces;
+using PulseEngine.Objects.Sprite;
+
+namespace PulseEngine.Component.Movement
+{
+    public class PlayerController : IActorComponent
+    {
+        Actor _parent;
+        
+        struct KeyBinding
+        {
+           public Keys Key;
+           public string State;
+        };
+
+        List<KeyBinding> KeyboardStates =
+            new List<KeyBinding>();
+
+        public void AttachTo(Actor actor)
+        {
+            _parent = actor;
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void BindKey(Keys K, String S)
+        {
+            KeyBinding KB = KeyBinding();
+            KB.Key = K; KB.State = S;
+
+            KeyboardStates.Add(new KeyBinding {);
+        }
+    }
+}

@@ -83,9 +83,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\PulseEngine2\PulseEngine2.csproj">
+    <ProjectReference Include="..\..\PulseEngine2\PulseEngine.csproj">
       <Project>{1a07a344-f62c-47c2-bdd1-d9f86977940e}</Project>
-      <Name>PulseEngine2</Name>
+      <Name>PulseEngine</Name>
     </ProjectReference>
     <ProjectReference Include="..\PulseDemoGameContent\PulseDemoGameContent.contentproj">
       <Name>PulseDemoGameContent</Name>
