@@ -12,23 +12,25 @@ namespace PulseEngine.Component.Collision
     {
         
     }
-    public class BBCollision : IEntity, IEntityUpdateComponent
+    public class BBCollision : IEntityUpdateComponent
     {
         public EventHandler Overlap;
           
         Entity _parent;
 
         public BoundingBox OtherBox {get; set;}
-
+        public Entity GetOwner()
+        {
+            return _parent;
+        }
         public void AttachTo(Entity entity)
         {
             _parent = entity;    
         }
         public void Update(GameTime gameTime)
         {
-            _parent.Box.Intersects(OtherBox.Box);
+            
         }
-
         protected virtual void OnOverlap(CollisionEventArgs e)
         {
             EventHandler handler = Overlap;

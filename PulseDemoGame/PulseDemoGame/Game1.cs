@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using PulseEngine;
+using PulseEngine.Component.Movement;
 using PulseEngine.Objects.Sprite;
 
 
@@ -22,9 +23,12 @@ namespace PulseDemoGame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        EntityNode en = new EntityNode();
+
         Entity sprite;
 
         SpriteFont spriteFont;
+        PlayerController pc = new PlayerController();
 
         public Game1()
         {
@@ -43,10 +47,35 @@ namespace PulseDemoGame
             // TODO: Add your initialization logic here
             sprite = new Entity();
            
+
+            en.AttachNode(sprite);
+            pc.AttachTo(sprite);
+            
+
+
+            pc.AddKeyBinding(Keys.A, MovementState.Left);
+            pc.AddKeyBinding(Keys.D, MovementState.Right);
+            pc.Pressed += Pc_Pressed;
+
+            pc.Initialise();
+            pc.Speed = 10.0f;
+            sprite.AddComponet(pc);
+
             base.Initialize();
         }
-        
-         
+
+        private void Pc_Pressed(object sender, PressedArgs e)
+        {
+           if(e.KState == MovementState.Right)
+            {
+                e.Attached.X+= e.Velocity;
+            }
+
+            if (e.KState == MovementState.Left)
+                e.Attached.X-= e.Velocity;
+        }
+
+
 
 
         /// <summary>
@@ -59,7 +88,9 @@ namespace PulseDemoGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            sprite.Load(this.Content, "sprite1");
+            sprite.AssetName = "sprite1";
+            en.Load(this.Content);           
+            
 
             spriteFont = this.Content.Load<SpriteFont>("SpriteFont1");
            
@@ -86,15 +117,7 @@ namespace PulseDemoGame
                 this.Exit();
 
             // TODO: Add your update logic here
-
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
-                sprite.X -= 1000.0f * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (Keyboard.GetState().IsKeyDown(Keys.D))
-                sprite.X += 1000.0f * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (Keyboard.GetState().IsKeyDown(Keys.W))
-                sprite.Y -= 1000.0f * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (Keyboard.GetState().IsKeyDown(Keys.S))
-                sprite.Y += 1000.0f * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            pc.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -110,7 +133,11 @@ namespace PulseDemoGame
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            sprite.Draw(spriteBatch);
+            //-----------------------------------------------
+
+            en.Draw(spriteBatch);
+
+            // ----------------------------------------------
             spriteBatch.DrawString(spriteFont, "FPS: " 
                 + frameRate.ToString(), new Vector2(0, 0), Color.White);
             spriteBatch.End();

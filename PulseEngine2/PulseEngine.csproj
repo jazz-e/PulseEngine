@@ -61,15 +61,17 @@
   <ItemGroup>
     <Compile Include="Component\Collision\BBCollision.cs" />
     <Compile Include="Component\Collision\BoundingBox.cs" />
-    <Compile Include="Component\Interfaces\IEntity.cs" />
     <Compile Include="Component\Interfaces\IEntityComponent.cs" />
     <Compile Include="Component\Interfaces\IEntityDrawComponent.cs" />
     <Compile Include="Component\Interfaces\IEntityUpdateComponent.cs" />
+    <Compile Include="Component\Movement\PlayerController.cs" />
+    <Compile Include="IRootNode.cs" />
     <Compile Include="Objects\Sprite\Entity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RootNode.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Component\Movement\" />
+    <Folder Include="Component\Unknown\" />
     <Folder Include="Display\Level\" />
     <Folder Include="Display\Menu\" />
   </ItemGroup>

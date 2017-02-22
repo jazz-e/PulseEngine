@@ -8,7 +8,7 @@ using PulseEngine.Component.Interfaces;
 
 namespace PulseEngine.Component.Collision
 {
-    public class BoundingBox : IEntity, IEntityUpdateComponent
+    public class BoundingBox :  IEntityUpdateComponent
     {
         public int OffsetLeft { get; set; }
         public int OffsetRight { get; set; }
