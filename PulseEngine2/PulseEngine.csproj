@@ -60,7 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Component\Collision\BBCollision.cs" />
-    <Compile Include="Component\Collision\BoundingBox.cs" />
+    <Compile Include="Component\Collision\BoundingRectangle.cs" />
     <Compile Include="Component\Collision\ScreenCollision.cs" />
     <Compile Include="Component\Interfaces\IEntityComponent.cs" />
     <Compile Include="Component\Interfaces\IEntityDrawComponent.cs" />

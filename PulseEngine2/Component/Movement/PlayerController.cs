@@ -25,7 +25,7 @@ namespace PulseEngine.Component.Movement
 
     public class PlayerController : IEntityComponent, IEntityUpdateComponent
     {
-        Entity _parent;
+        protected Entity _parent;
 
         public event KeyPressedEventHandler Pressed;
               

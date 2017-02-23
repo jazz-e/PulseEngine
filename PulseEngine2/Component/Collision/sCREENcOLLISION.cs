@@ -24,7 +24,7 @@ namespace PulseEngine.Component.Collision
         public event OutScreenArea OffScreen;
         public event LeaveScreenArea LeavingScreen;
 
-        Entity _parent;
+        protected Entity _parent;
 
         public Rectangle Boundary { get; set; }
 
@@ -55,28 +55,28 @@ namespace PulseEngine.Component.Collision
 
             if(_parent !=null)
                 foreach (IEntityUpdateComponent entity in _parent.UpdateComponents)
-                    if(entity is BoundingBox)
+                    if(entity is BoundingRectangle)
                     {
-                        if (((BoundingBox)entity).Box.Left < this.Boundary.Left)
+                        if (((BoundingRectangle)entity).Box.Left < this.Boundary.Left)
                             _args.LeftScreen = LeftBy.Left;
-                        if (((BoundingBox)entity).Box.Right > this.Boundary.Right)
+                        if (((BoundingRectangle)entity).Box.Right > this.Boundary.Right)
                             _args.LeftScreen = LeftBy.Right;
-                        if (((BoundingBox)entity).Box.Top < this.Boundary.Top)
+                        if (((BoundingRectangle)entity).Box.Top < this.Boundary.Top)
                             _args.LeftScreen = LeftBy.Top;
-                        if (((BoundingBox)entity).Box.Bottom > this.Boundary.Bottom)
+                        if (((BoundingRectangle)entity).Box.Bottom > this.Boundary.Bottom)
                             _args.LeftScreen = LeftBy.Bottom;
 
-                        if (((BoundingBox)entity).Box.Intersects(this.Boundary) &&
+                        if (((BoundingRectangle)entity).Box.Intersects(this.Boundary) &&
                             _args.LeftScreen == LeftBy.None)
                         if (OnScreen != null)
                             OnScreen(this, _args);
 
-                        if (((BoundingBox)entity).Box.Intersects(this.Boundary) &&
+                        if (((BoundingRectangle)entity).Box.Intersects(this.Boundary) &&
                             _args.LeftScreen != LeftBy.None)
                             if (LeavingScreen != null)
                                 LeavingScreen(this, _args);
 
-                        if (!((BoundingBox)entity).Box.Intersects(this.Boundary))
+                        if (!((BoundingRectangle)entity).Box.Intersects(this.Boundary))
                             if (OffScreen != null)
                                 OffScreen(this, _args);
                     }

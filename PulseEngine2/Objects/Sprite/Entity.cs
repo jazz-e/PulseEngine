@@ -25,31 +25,40 @@ namespace PulseEngine.Objects.Sprite
         public List<IEntityComponent> Components { get { return EntityComponents; } }
         public List<IEntityUpdateComponent> UpdateComponents { get { return EntityUpdateComponents; } }
         public List<IEntityDrawComponent> DrawComponents { get { return EntityDrawComponents; } }
-        
+
         //Private Members - Attributes.
 
-        Texture2D _image; //Reference to Image Asset
-        Entity _parent;
+        protected Texture2D _image; //Reference to Image Asset
+        protected Entity _parent;
 
         //Public Members - Properties 
         public Vector2 Position { get; set; }
 
         public float RotationAngle { get; set; }
-        public float Scale { get; set; }
+        protected float _scale;
+        public float Scale { get {return _scale; } set {_scale=value; SetScale(); } }
         public bool Visible { get; set; }
         public Vector2 Origin { get; set; }
         public float ZPlane { get; set; }
         public string AssetName { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
-        float x, y;
-        public float X { get { return x; } set { x = value; SetPosition(); } }
-        public float Y { get { return y; } set { y = value; SetPosition(); } }
+        protected float _x, _y;
+        public float X { get { return _x; } set { _x = value; SetPosition(); } }
+        public float Y { get { return _y; } set { _y = value; SetPosition(); } }
 
-        void SetPosition ()
+        protected void SetPosition ()
         {
             Position =
-                new Vector2(this.x, this.y);
+                new Vector2(this._x, this._y);
+        }
+        protected void SetScale()
+        {
+            if (_image != null)
+            {
+                Width = (int)((float)_image.Width * _scale);
+                Height = (int)((float)_image.Height * _scale);
+            }
         }
 
         //Public Members - Methods 
@@ -59,7 +68,7 @@ namespace PulseEngine.Objects.Sprite
             Scale = 1.0f;
         }
         public virtual void Initialise()
-        {        }
+        {  }
         public virtual bool Load(ContentManager Content)
         {
             if(AssetName != null)
@@ -88,11 +97,6 @@ namespace PulseEngine.Objects.Sprite
         public virtual void Update(GameTime gameTime)
         {
             //Must be Updated Every Iteration
-            if (_image != null)
-            {
-                Width = (int)((float)_image.Width * Scale);
-                Height = (int)((float)_image.Height * Scale);
-            }
         }
 
         //Parenting 

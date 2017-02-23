@@ -19,9 +19,9 @@ namespace PulseEngine.Component.Collision
     {
         public event OnBoxOverlap Overlap;
           
-        Entity _parent;
+        protected Entity _parent;
 
-        public BoundingBox OtherBox {get; set;}
+        public BoundingRectangle OtherBox {get; set;}
         public Entity GetOwner()
         {
             return _parent;
@@ -35,9 +35,9 @@ namespace PulseEngine.Component.Collision
             if(_parent !=null)
             if(_parent.UpdateComponents.Count>0)
             foreach(IEntityUpdateComponent entity in _parent.UpdateComponents)
-               if(entity is BoundingBox)
+               if(entity is BoundingRectangle)
                     {
-                        if(((BoundingBox)entity).Box.Intersects(OtherBox.Box))
+                        if(((BoundingRectangle)entity).Box.Intersects(OtherBox.Box))
                         {
                             CollisionEventArgs _args = new CollisionEventArgs();
                             _args.CollidedWith = OtherBox.GetOwner();

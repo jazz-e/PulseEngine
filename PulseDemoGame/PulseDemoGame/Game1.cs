@@ -24,22 +24,16 @@ namespace PulseDemoGame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        EntityNode en = new EntityNode();
-        
-        Entity sprite;
-        Entity sprite2; 
-
         SpriteFont spriteFont;
-        PlayerController pc = new PlayerController();
+        //--- Node  First --- 
+        EntityNode eNode =
+            new EntityNode();
 
-        PulseEngine.Component.Collision.BoundingBox bb1 
-            = new PulseEngine.Component.Collision.BoundingBox();
-        PulseEngine.Component.Collision.BoundingBox bb2
-            = new PulseEngine.Component.Collision.BoundingBox();
-        PulseEngine.Component.Collision.BBCollision bbc =
-            new PulseEngine.Component.Collision.BBCollision();
+        //--- Sprite --- 
+        Classes.Ball_Class ball = 
+            new Classes.Ball_Class();
+        
 
-        ScreenCollision sc = new ScreenCollision(0,0, 600, 400);
 
         public Game1()
         {
@@ -56,72 +50,22 @@ namespace PulseDemoGame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            sprite = new Entity();
-            sprite2 = new Entity();
 
-            en.AttachNode(sprite);
-            en.AttachNode(sprite2);
-
-            pc.AttachTo(sprite);
+            //Initialise Sprite 
             
+            ball.AssetName = "sprite1";
+            ball.screenCollision =
+                new ScreenCollision(0, 0, this.Window.ClientBounds.Width,
+                this.Window.ClientBounds.Height);
 
 
-            pc.AddKeyBinding(Keys.A, MovementState.Left);
-            pc.AddKeyBinding(Keys.D, MovementState.Right);
-            pc.Pressed += Pc_Pressed;
-            
-            pc.Initialise();
-            pc.Speed = 3.0f;
-            sprite.AddComponet(pc);
-
-            sprite.AddComponet(bb1);
-            sprite2.AddComponet(bb2);
-
-            bb1.AttachTo(sprite);
-            bb2.AttachTo(sprite2);
-
-            bbc.AttachTo(sprite);
-            sprite.AddComponet(bbc);
-            bbc.Overlap += Bbc_Overlap;
-
-            sc.AttachTo(sprite);
-            sprite.AddComponet(sc);
-            sc.OffScreen += Sc_OffScreen;
-            sc.LeavingScreen += Sc_LeavingScreen;
+            eNode.AttachNode(ball);
 
 
+            eNode.Initialise();
             base.Initialize();
         }
-
-        private void Sc_LeavingScreen(object sender, ScreenAreaArgs e)
-        {
-            this.Window.Title = "Leaving";
-        }
-
-        private void Sc_OffScreen(object sender, ScreenAreaArgs e)
-        {
-            this.Window.Title = e.LeftScreen.ToString();
-        }
-
-        private void Bbc_Overlap(object sender, PulseEngine.Component.Collision.CollisionEventArgs e)
-        {
-            if (e.CollidedWith != null)
-                this.Exit();
-        }
-
-        private void Pc_Pressed(object sender, PressedArgs e)
-        {
-           if(e.KState == MovementState.Right)
-            {
-                e.Attached.X+= e.Velocity;
-            }
-
-            if (e.KState == MovementState.Left)
-                e.Attached.X-= e.Velocity;
-        }
-
-
-
+        
 
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -132,15 +76,10 @@ namespace PulseDemoGame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
-            sprite.AssetName = "sprite1";
-            sprite2.AssetName = "sprite1";
-
-            en.Load(this.Content);           
-            
+            // TODO: use this.Content to load your game content here  
 
             spriteFont = this.Content.Load<SpriteFont>("SpriteFont1");
-           
+            eNode.Load(this.Content);
         }
 
         /// <summary>
@@ -164,17 +103,7 @@ namespace PulseDemoGame
                 this.Exit();
 
             // TODO: Add your update logic here
-            sprite2.X = 300;
-            bb1.Update(gameTime);
-            bb2.Update(gameTime);
-            bbc.OtherBox = bb2;
-
-
-            bbc.Update(gameTime);
-            
-            pc.Update(gameTime);
-            sc.Update(gameTime);
-
+            eNode.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -191,8 +120,7 @@ namespace PulseDemoGame
             spriteBatch.Begin();
             //-----------------------------------------------
 
-            en.Draw(spriteBatch);
-
+            eNode.Draw(spriteBatch);
             // ----------------------------------------------
             spriteBatch.DrawString(spriteFont, "FPS: " 
                 + frameRate.ToString(), new Vector2(0, 0), Color.White);

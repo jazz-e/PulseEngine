@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using PulseEngine.Objects.Sprite;
 using PulseEngine.Component.Interfaces;
 
 namespace PulseEngine.Component.Collision
 {
-    public class BoundingBox :  IEntityUpdateComponent
+    public class BoundingRectangle :  IEntityUpdateComponent
     {
         public int OffsetLeft { get; set; }
         public int OffsetRight { get; set; }
@@ -17,7 +13,7 @@ namespace PulseEngine.Component.Collision
 
         public Rectangle Box;
 
-        Entity _parent;
+        protected Entity _parent;
 
         public Entity GetOwner()
         {
