@@ -66,7 +66,7 @@
     <Compile Include="Component\Interfaces\IEntityDrawComponent.cs" />
     <Compile Include="Component\Interfaces\IEntityUpdateComponent.cs" />
     <Compile Include="Component\Movement\PlayerController.cs" />
-    <Compile Include="Display\Game\MapManager.cs" />
+    <Compile Include="Display\Map\MapManager.cs" />
     <Compile Include="Display\World.cs" />
     <Compile Include="IRootNode.cs" />
     <Compile Include="Objects\Sprite\Entity.cs" />
