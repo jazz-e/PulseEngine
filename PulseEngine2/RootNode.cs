@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using PulseEngine.Component.Interfaces;
 using PulseEngine.Objects.Sprite;
+using PulseEngine.Display.World;
+using System;
 
 namespace PulseEngine
 {
@@ -96,5 +98,15 @@ namespace PulseEngine
         #endregion
 
 
+    }
+
+    public class WorldNode : RootNode<World>
+    {
+        public WorldNode() : base()
+        { }
+
+        public WorldNode (World world) : base (world)
+        { }
+        
     }
 }

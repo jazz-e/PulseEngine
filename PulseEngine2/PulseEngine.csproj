@@ -66,6 +66,8 @@
     <Compile Include="Component\Interfaces\IEntityDrawComponent.cs" />
     <Compile Include="Component\Interfaces\IEntityUpdateComponent.cs" />
     <Compile Include="Component\Movement\PlayerController.cs" />
+    <Compile Include="Display\Game\MapManager.cs" />
+    <Compile Include="Display\World.cs" />
     <Compile Include="IRootNode.cs" />
     <Compile Include="Objects\Sprite\Entity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,8 +75,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Component\Unknown\" />
-    <Folder Include="Display\Level\" />
     <Folder Include="Display\Menu\" />
+    <Folder Include="Display\Option\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
