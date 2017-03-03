@@ -1,18 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 using PulseEngine;
 using PulseEngine.Component.Collision;
-using PulseEngine.Component.Movement;
-using PulseEngine.Objects.Sprite;
-
+using PulseEngine.Display.Map;
 
 namespace PulseDemoGame
 {
@@ -32,7 +23,8 @@ namespace PulseDemoGame
         //--- Sprite --- 
         Classes.Ball_Class ball = 
             new Classes.Ball_Class();
-        
+
+        Background background; 
 
 
         public Game1()
@@ -60,7 +52,9 @@ namespace PulseDemoGame
 
 
             eNode.AttachNode(ball);
-
+            background = new Background(this.Window.ClientBounds.Width,
+                this.Window.ClientBounds.Height);
+         
 
             eNode.Initialise();
             base.Initialize();
@@ -80,6 +74,8 @@ namespace PulseDemoGame
 
             spriteFont = this.Content.Load<SpriteFont>("SpriteFont1");
             eNode.Load(this.Content);
+            background.assetName = "gameBackground";
+            background.LoadContent(this.Content);
         }
 
         /// <summary>
@@ -101,7 +97,7 @@ namespace PulseDemoGame
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-
+            background.Update(gameTime);
             // TODO: Add your update logic here
             eNode.Update(gameTime);
             base.Update(gameTime);
@@ -119,11 +115,13 @@ namespace PulseDemoGame
             // TODO: Add your drawing code here
             spriteBatch.Begin();
             //-----------------------------------------------
-
+            background.Draw(spriteBatch);
             eNode.Draw(spriteBatch);
             // ----------------------------------------------
             spriteBatch.DrawString(spriteFont, "FPS: " 
                 + frameRate.ToString(), new Vector2(0, 0), Color.White);
+
+
             spriteBatch.End();
 
             base.Draw(gameTime);

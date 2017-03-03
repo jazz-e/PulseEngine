@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PulseEngine.Display.World
 {
-    class MapManager
+    public class Level
     {
     }
 }

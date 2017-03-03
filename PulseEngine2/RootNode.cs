@@ -100,13 +100,29 @@ namespace PulseEngine
 
     }
 
-    public class WorldNode : RootNode<World>
+    public class MapNode : RootNode<Level>
     {
-        public WorldNode() : base()
+        public MapNode() : base()
         { }
 
-        public WorldNode (World world) : base (world)
+        public MapNode (Level level) : base (level)
         { }
-        
+
+        public override void Initialise()
+        {
+            base.Initialise();
+        }
+        public override void Load(ContentManager content)
+        {
+            base.Load(content);
+        }
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+        }
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+        }
     }
 }
