@@ -13,11 +13,6 @@ namespace PulseEngine.Display
         {
             get;set;
         }
-
-        Texture2D Image
-        {
-            get;set;
-        }
         
         void LoadContent(ContentManager content);
         void Draw(SpriteBatch spriteBatch);

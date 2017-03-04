@@ -19,23 +19,10 @@ namespace PulseEngine.Display.Map
         }
 
         protected Texture2D _image;
-        public Texture2D Image
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+       
 
         protected int width, height;
-
-        public StaticBackground(int screenWidth, int screenHeight)
-        { width = screenWidth; height = screenHeight; }
+        public int screenWidth, screenHeight;
 
         public void LoadContent(ContentManager content)
         {
@@ -44,7 +31,7 @@ namespace PulseEngine.Display.Map
             { width = _image.Width; height = _image.Height; }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_image,
                 new Rectangle((int)x, (int)y, width, height ),

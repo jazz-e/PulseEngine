@@ -52,8 +52,7 @@ namespace PulseDemoGame
 
 
             eNode.AttachNode(ball);
-            background = new Background(this.Window.ClientBounds.Width,
-                this.Window.ClientBounds.Height);
+            background = new Background();
          
 
             eNode.Initialise();
@@ -74,8 +73,10 @@ namespace PulseDemoGame
 
             spriteFont = this.Content.Load<SpriteFont>("SpriteFont1");
             eNode.Load(this.Content);
-            background.assetName = "gameBackground";
+            background.assetName = "image1";
             background.LoadContent(this.Content);
+            background.screenWidth = this.Window.ClientBounds.Width;
+            background.screenHeight = this.Window.ClientBounds.Height;
         }
 
         /// <summary>
@@ -99,6 +100,10 @@ namespace PulseDemoGame
                 this.Exit();
             background.Update(gameTime);
             // TODO: Add your update logic here
+            background.TileHorizontal = true;
+            background.TileVertical = true;
+            background.HorizontalSpeed = 9.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
+
             eNode.Update(gameTime);
             base.Update(gameTime);
         }
