@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace PulseEngine.Display.Map
+namespace PulseEngine.Display.World
 {
     public class Background : StaticBackground
     {
@@ -54,11 +54,16 @@ namespace PulseEngine.Display.Map
             int rows = repeatRow * this.height;
             int columns = repeatColumn * this.width;
 
-            int startx = (int)x;
-            int starty = (int)y; 
+            int startx = (int)x % width;
+            int starty = (int)y % height;
 
-            for (int cy = (int)y; cy <= rows ; cy += this.height )
-                for (int cx = (int)x; cx <= columns; cx += this.width )
+            int offsetx=0, offsety=0;
+
+            if (HorizontalSpeed != 0 && TileHorizontal) offsetx = this.width;
+            if (VerticalSpeed != 0 && TileVertical) offsety = this.height; 
+            
+            for (int cy = starty-offsety; cy <= rows+offsety ; cy += this.height )
+                for (int cx = startx-offsetx; cx <= columns + offsetx; cx += this.width )
                     spriteBatch.Draw(_image, new Vector2(cx, cy), Color.White);
 
         }

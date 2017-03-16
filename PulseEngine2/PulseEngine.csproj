@@ -61,16 +61,18 @@
   <ItemGroup>
     <Compile Include="Component\Collision\BBCollision.cs" />
     <Compile Include="Component\Collision\BoundingRectangle.cs" />
+    <Compile Include="Component\Collision\MapCollision.cs" />
     <Compile Include="Component\Collision\ScreenCollision.cs" />
     <Compile Include="Component\Interfaces\IEntityComponent.cs" />
     <Compile Include="Component\Interfaces\IEntityDrawComponent.cs" />
     <Compile Include="Component\Interfaces\IEntityUpdateComponent.cs" />
     <Compile Include="Component\Movement\PlayerController.cs" />
     <Compile Include="Display\IBackground.cs" />
-    <Compile Include="Display\Map\Background.cs" />
-    <Compile Include="Display\Map\Level.cs" />
-    <Compile Include="Display\Map\StaticBackground.cs" />
+    <Compile Include="Display\World\Background.cs" />
+    <Compile Include="Display\World\Level.cs" />
+    <Compile Include="Display\World\StaticBackground.cs" />
     <Compile Include="Display\World.cs" />
+    <Compile Include="Display\World\TileMap.cs" />
     <Compile Include="IRootNode.cs" />
     <Compile Include="Objects\Sprite\Entity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -21,6 +21,7 @@ namespace PulseDemoGame.Classes
             //--- Attach all Components ---
             screenCollision.AttachTo(this);
             boundingBox.AttachTo(this);
+
             AddComponet(boundingBox);
             AddComponet(screenCollision);
             
@@ -37,6 +38,7 @@ namespace PulseDemoGame.Classes
             if (e.LeftScreen == LeftBy.Top ||
                 e.LeftScreen == LeftBy.Bottom)
                 dy *= -1;
+            
         }
 
         public override void Update(GameTime gameTime)

@@ -100,12 +100,12 @@ namespace PulseEngine
 
     }
 
-    public class MapNode : RootNode<Level>
+    public class WorldNode : RootNode<Level>
     {
-        public MapNode() : base()
+        public WorldNode() : base()
         { }
 
-        public MapNode (Level level) : base (level)
+        public WorldNode (Level level) : base (level)
         { }
 
         public override void Initialise()

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PulseEngine;
 using PulseEngine.Component.Collision;
-using PulseEngine.Display.Map;
+using PulseEngine.Display.World;
 
 namespace PulseDemoGame
 {
@@ -24,8 +24,10 @@ namespace PulseDemoGame
         Classes.Ball_Class ball = 
             new Classes.Ball_Class();
 
-        Background background; 
+        Background background;
 
+        TileMap tm = new TileMap();
+        MapCollision mc;
 
         public Game1()
         {
@@ -77,6 +79,23 @@ namespace PulseDemoGame
             background.LoadContent(this.Content);
             background.screenWidth = this.Window.ClientBounds.Width;
             background.screenHeight = this.Window.ClientBounds.Height;
+
+            tm.TileName.Add("grassLeftBlock");
+            tm.TileName.Add("grassCenterBlock");
+            tm.TileName.Add("grassRightBlock");
+
+            int[,] map =
+                new int[,] {
+                    { 0, 0, 0, 0}, { 0, 0, 0, 0 },
+                    { 1, 2, 2, 3}, { 0, 0, 0, 0 }
+                };
+
+            tm.Load(this.Content, map, 60, 60, 1.0f);
+            mc = new MapCollision();
+
+            mc.AttachTo(ball);
+            ball.AddComponet(mc);
+            mc.objectList = tm.Tiles;
         }
 
         /// <summary>
@@ -100,11 +119,17 @@ namespace PulseDemoGame
                 this.Exit();
             background.Update(gameTime);
             // TODO: Add your update logic here
-            background.TileHorizontal = true;
+           background.TileHorizontal = true;
             background.TileVertical = true;
-            background.HorizontalSpeed = 9.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
-
+            background.VerticalSpeed = 1.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            background.HorizontalSpeed = 1.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
             eNode.Update(gameTime);
+
+           tm.Update(gameTime);
+           
+
+            mc.Update(gameTime);
+
             base.Update(gameTime);
         }
 
@@ -121,6 +146,9 @@ namespace PulseDemoGame
             spriteBatch.Begin();
             //-----------------------------------------------
             background.Draw(spriteBatch);
+
+            tm.Draw(spriteBatch);
+
             eNode.Draw(spriteBatch);
             // ----------------------------------------------
             spriteBatch.DrawString(spriteFont, "FPS: " 

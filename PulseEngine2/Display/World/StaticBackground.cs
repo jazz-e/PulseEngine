@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace PulseEngine.Display.Map
+namespace PulseEngine.Display.World
 {
     public class StaticBackground : IBackground
     {
