@@ -12,3 +12,5 @@ PulseDemoGame/PulseDemoGame/obj/x86/Debug/PulseDemoGame.pdb
 PulseDemoGame/PulseDemoGameContent/obj/x86/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 PulseDemoGame/PulseDemoGameContent/obj/x86/Debug/PulseDemoGameContent.contentprojResolveAssemblyReference.cache
 /PulseDemoGame/PulseDemoGame/obj/x86/Debug
+PulseEngine2/bin/
+PulseDemoGame/PulseDemoGame/bin/
