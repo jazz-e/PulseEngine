@@ -30,7 +30,12 @@ namespace PulseEngine.Display.World
         }
 
         public float HorizontalSpeed, VerticalSpeed;
-        
+
+        int startx = 0;
+        int starty = 0;
+
+        int dx=0, dy=0;
+
         public void Update(GameTime gameTime)
         {
             X +=  HorizontalSpeed * gameTime.ElapsedGameTime.Milliseconds;
@@ -54,8 +59,12 @@ namespace PulseEngine.Display.World
             int rows = repeatRow * this.height;
             int columns = repeatColumn * this.width;
 
-            int startx = (int)x % width;
-            int starty = (int)y % height;
+
+            dx += (int)HorizontalSpeed;
+            dy += (int)VerticalSpeed;
+
+            startx = dx%this.width;
+            starty = dy % this.height;
 
             int offsetx=0, offsety=0;
 

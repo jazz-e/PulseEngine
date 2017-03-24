@@ -119,10 +119,13 @@ namespace PulseDemoGame
                 this.Exit();
             background.Update(gameTime);
             // TODO: Add your update logic here
-           background.TileHorizontal = true;
+
+            background.TileHorizontal = true;
             background.TileVertical = true;
-            background.VerticalSpeed = 1.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            background.HorizontalSpeed = 1.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            background.VerticalSpeed = -2.5f; 
+            background.HorizontalSpeed = 2.5f;
+           
             eNode.Update(gameTime);
 
            tm.Update(gameTime);
