@@ -27,6 +27,8 @@ namespace PulseDemoGame
         Background background;
 
         TileMap tm = new TileMap();
+        
+
         MapCollision mc;
 
         public Game1()
@@ -96,7 +98,14 @@ namespace PulseDemoGame
             mc.AttachTo(ball);
             ball.AddComponet(mc);
             mc.objectList = tm.Tiles;
+
+            
+            ball.surfaceCollision.Entities = tm.Tiles;
+
+            
         }
+
+    
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -126,8 +135,8 @@ namespace PulseDemoGame
             eNode.Update(gameTime);
 
            tm.Update(gameTime);
-           
 
+            
             mc.Update(gameTime);
 
             base.Update(gameTime);
