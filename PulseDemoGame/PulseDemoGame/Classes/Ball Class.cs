@@ -22,7 +22,7 @@ namespace PulseDemoGame.Classes
             screenCollision.LeavingScreen += ScreenCollision_LeavingScreen;
             surfaceCollision.Collision += SurfaceCollision_Collision;
 
-            speed = 50.0f; dx = 1; dy = 1;
+            speed = 150.0f; dx = 1; dy = 1;
 
             //--- Attach all Components ---
             screenCollision.AttachTo(this);
@@ -47,8 +47,8 @@ namespace PulseDemoGame.Classes
                 e.LeftScreen == LeftBy.Left)
                 dx *= -1;
 
-            if (e.LeftScreen == LeftBy.Top ||
-                e.LeftScreen == LeftBy.Bottom)
+            if (e.LeftScreen == LeftBy.Top && dy == -1  ||
+                e.LeftScreen == LeftBy.Bottom && dy ==1)
                 dy *= -1;
             
         }

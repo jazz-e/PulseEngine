@@ -89,7 +89,17 @@ namespace PulseDemoGame
             int[,] map =
                 new int[,] {
                     { 0, 0, 0, 0}, { 0, 0, 0, 0 },
-                    { 1, 2, 2, 3}, { 0, 0, 0, 0 }
+                    { 1, 2, 2, 3}, { 0, 0, 0, 0 },
+                    { 0, 0, 0, 0}, { 0, 0, 0, 0},
+                     { 0, 0, 0, 0}, { 0, 0, 0, 0},
+                    { 1, 2, 2, 3}, { 0, 0, 0, 0},
+                    { 0, 0, 0, 0}, { 0, 0, 0, 0},
+                     { 0, 0, 0, 0}, { 0, 0, 0, 0},
+                    { 1, 2, 2, 3}, { 0, 0, 0, 0 },
+                    { 0, 0, 0, 0}, { 0, 0, 0, 0},
+                     { 0, 0, 0, 0}, { 0, 0, 0, 0},
+                     { 0, 0, 0, 0}, { 0, 0, 0, 0},
+                     { 0, 0, 0, 0},{ 1, 2, 2, 3}
                 };
 
             tm.Load(this.Content, map, 60, 60, 1.0f);
@@ -101,7 +111,7 @@ namespace PulseDemoGame
 
             
             ball.surfaceCollision.Entities = tm.Tiles;
-
+            
             
         }
 
@@ -133,12 +143,12 @@ namespace PulseDemoGame
             background.VerticalSpeed = 1.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
             background.HorizontalSpeed = 1.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
             eNode.Update(gameTime);
-
-           tm.Update(gameTime);
+            tm.Offset_Y--;
+            tm.Update(gameTime);
 
             
             mc.Update(gameTime);
-
+            
             base.Update(gameTime);
         }
 
