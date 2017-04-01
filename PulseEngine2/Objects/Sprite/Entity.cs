@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using PulseEngine.Component;
 using PulseEngine.Component.Interfaces;
 
 namespace PulseEngine.Objects.Sprite
@@ -14,15 +10,15 @@ namespace PulseEngine.Objects.Sprite
     public class Entity 
     {
         //Sprite Components 
-        protected List<IEntityComponent> EntityComponents
-            = new List<IEntityComponent>();
+        protected List<IEntityInitialiseComponent> EntityComponents
+            = new List<IEntityInitialiseComponent>();
         protected List<IEntityUpdateComponent> EntityUpdateComponents
             = new List<IEntityUpdateComponent>();
         protected List<IEntityDrawComponent> EntityDrawComponents
             = new List<IEntityDrawComponent>();
 
         //List Properties 
-        public List<IEntityComponent> Components { get { return EntityComponents; } }
+        public List<IEntityInitialiseComponent> Components { get { return EntityComponents; } }
         public List<IEntityUpdateComponent> UpdateComponents { get { return EntityUpdateComponents; } }
         public List<IEntityDrawComponent> DrawComponents { get { return EntityDrawComponents; } }
 
@@ -46,6 +42,7 @@ namespace PulseEngine.Objects.Sprite
         protected float _x, _y;
         public float X { get { return _x; } set { _x = value; SetPosition(); } }
         public float Y { get { return _y; } set { _y = value; SetPosition(); } }
+        public Vector2 Velocity { get; set; }
 
         protected void SetPosition ()
         {
@@ -66,6 +63,7 @@ namespace PulseEngine.Objects.Sprite
         {
             Visible = true;
             Scale = 1.0f;
+            ZPlane = 1.0f;
         }
         public virtual void Initialise()
         {  }
@@ -96,7 +94,8 @@ namespace PulseEngine.Objects.Sprite
         }
         public virtual void Update(GameTime gameTime)
         {
-            //Must be Updated Every Iteration
+            Position +=
+                Velocity;
         }
 
         //Parenting 
@@ -111,12 +110,17 @@ namespace PulseEngine.Objects.Sprite
 
 
         //Component Methods 
-       public void AddComponet(object entityComponent)
+       public void AddComponent(object entityComponent)
         {
-            if (entityComponent is IEntityComponent)
+            if(entityComponent is IEntityComponent)
+            {
+                ((IEntityComponent)entityComponent).AttachTo(this);
+            }
+
+            if (entityComponent is IEntityInitialiseComponent)
             {
                 EntityComponents.
-                    Add((IEntityComponent)entityComponent);
+                    Add((IEntityInitialiseComponent)entityComponent);
             }
 
             if (entityComponent is IEntityUpdateComponent)

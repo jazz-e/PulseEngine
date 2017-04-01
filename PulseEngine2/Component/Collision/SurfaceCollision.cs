@@ -17,7 +17,7 @@ namespace PulseEngine.Component.Collision
 
     public delegate void CollisionHandler(object sender, SideCollisionArgs e);
 
-    public class SurfaceCollision : IEntityComponent, IEntityUpdateComponent
+    public class SurfaceCollision : IEntityComponent, IEntityInitialiseComponent, IEntityUpdateComponent
     {
         Entity _parent;
 
@@ -25,7 +25,7 @@ namespace PulseEngine.Component.Collision
             new List<Entity>();
 
         public event CollisionHandler Collision;
-        public event CollisionHandler CollisionFree;
+        //public event CollisionHandler CollisionFree;
 
         public void AttachTo(Entity entity)
         {
@@ -97,7 +97,9 @@ namespace PulseEngine.Component.Collision
                         {
                             _args.ContactSide = Side.Left;
                             _args.ContactEntity = ListEntity;
-                            Collision(this, _args);
+
+                            if (Collision != null)
+                                Collision(this, _args);
                         }
 
                         //Right Side Collision 
@@ -110,6 +112,8 @@ namespace PulseEngine.Component.Collision
                         {
                             _args.ContactSide = Side.Right;
                             _args.ContactEntity = ListEntity;
+
+                            if(Collision != null)
                             Collision(this, _args);
                         }
 
@@ -123,7 +127,9 @@ namespace PulseEngine.Component.Collision
                         {
                             _args.ContactSide = Side.Top;
                             _args.ContactEntity = ListEntity;
-                            Collision(this, _args);
+
+                            if (Collision != null)
+                                Collision(this, _args);
                         }
 
                         //Bottom Side Collision
@@ -136,7 +142,9 @@ namespace PulseEngine.Component.Collision
                         {
                             _args.ContactSide = Side.Bottom;
                             _args.ContactEntity = ListEntity;
-                            Collision(this, _args);
+
+                            if (Collision != null)
+                                Collision(this, _args);
                         }
                     }
 

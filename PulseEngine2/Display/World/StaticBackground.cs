@@ -20,7 +20,6 @@ namespace PulseEngine.Display.World
 
         protected Texture2D _image;
        
-
         protected int width, height;
         public int screenWidth, screenHeight;
 

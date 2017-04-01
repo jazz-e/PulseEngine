@@ -11,14 +11,15 @@ namespace PulseEngine.Component.Collision
     public enum LeftBy {None, Left, Right, Top, Bottom }
     public class ScreenAreaArgs : EventArgs
     {
-        public LeftBy LeftScreen { get; set; }
+        public List<LeftBy> LeftScreen { get; set; }
+        public Entity Attached { get; set; }
     }
 
     public delegate void InScreenArea(object sender, ScreenAreaArgs e);
     public delegate void OutScreenArea(object sender, ScreenAreaArgs e);
     public delegate void LeaveScreenArea(object sender, ScreenAreaArgs e);
 
-    public class ScreenCollision : IEntityComponent, IEntityUpdateComponent
+    public class ScreenCollision : IEntityComponent, IEntityInitialiseComponent, IEntityUpdateComponent
     {
         public event InScreenArea OnScreen;
         public event OutScreenArea OffScreen;
@@ -51,28 +52,34 @@ namespace PulseEngine.Component.Collision
         public void Update(GameTime gameTime)
         {
             ScreenAreaArgs _args = new Collision.ScreenAreaArgs();
-            _args.LeftScreen = LeftBy.None;
+            _args.LeftScreen = new List<LeftBy>();
+
+            _args.Attached = this._parent;
 
             if(_parent !=null)
                 foreach (IEntityUpdateComponent entity in _parent.UpdateComponents)
                     if(entity is BoundingRectangle)
                     {
                         if (((BoundingRectangle)entity).Box.Left < this.Boundary.Left)
-                            _args.LeftScreen = LeftBy.Left;
+                            _args.LeftScreen.Add( LeftBy.Left);
                         if (((BoundingRectangle)entity).Box.Right > this.Boundary.Right)
-                            _args.LeftScreen = LeftBy.Right;
+                            _args.LeftScreen.Add(LeftBy.Right);
                         if (((BoundingRectangle)entity).Box.Top < this.Boundary.Top)
-                            _args.LeftScreen = LeftBy.Top;
+                            _args.LeftScreen.Add(LeftBy.Top);
                         if (((BoundingRectangle)entity).Box.Bottom > this.Boundary.Bottom)
-                            _args.LeftScreen = LeftBy.Bottom;
+                            _args.LeftScreen.Add(LeftBy.Bottom);
 
-                        if (((BoundingRectangle)entity).Box.Intersects(this.Boundary) &&
-                            _args.LeftScreen == LeftBy.None)
-                        if (OnScreen != null)
-                            OnScreen(this, _args);
+                        if (_args.LeftScreen.Count > 0)
+                        if (((BoundingRectangle)entity).Box.Intersects(this.Boundary))
+                            {
+                                _args.LeftScreen.Add(LeftBy.None);
 
-                        if (((BoundingRectangle)entity).Box.Intersects(this.Boundary) &&
-                            _args.LeftScreen != LeftBy.None)
+                                OnScreen?.Invoke(this, _args);
+                            }
+
+                        if (_args.LeftScreen.Count > 0)
+                            if (((BoundingRectangle)entity).Box.Intersects(this.Boundary) &&
+                            _args.LeftScreen[0] != LeftBy.None)
                             if (LeavingScreen != null)
                                 LeavingScreen(this, _args);
 

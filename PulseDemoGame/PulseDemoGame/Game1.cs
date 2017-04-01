@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PulseEngine;
 using PulseEngine.Component.Collision;
+using PulseEngine.Component.Movement;
 using PulseEngine.Display.World;
 
 namespace PulseDemoGame
@@ -14,7 +15,7 @@ namespace PulseDemoGame
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
+        
         SpriteFont spriteFont;
         //--- Node  First --- 
         EntityNode eNode =
@@ -25,12 +26,11 @@ namespace PulseDemoGame
             new Classes.Ball_Class();
 
         Background background;
-
+        
         TileMap tm = new TileMap();
         
-
         MapCollision mc;
-
+       
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -53,12 +53,11 @@ namespace PulseDemoGame
             ball.screenCollision =
                 new ScreenCollision(0, 0, this.Window.ClientBounds.Width,
                 this.Window.ClientBounds.Height);
-
+            ball.ZPlane = 1f;
 
             eNode.AttachNode(ball);
             background = new Background();
-         
-
+            
             eNode.Initialise();
             base.Initialize();
         }
@@ -93,8 +92,8 @@ namespace PulseDemoGame
                     { 0, 0, 0, 0}, { 0, 0, 0, 0},
                      { 0, 0, 0, 0}, { 0, 0, 0, 0},
                     { 1, 2, 2, 3}, { 0, 0, 0, 0},
-                    { 0, 0, 0, 0}, { 0, 0, 0, 0},
-                     { 0, 0, 0, 0}, { 0, 0, 0, 0},
+                    { 2, 0, 0, 0}, { 0, 0, 0, 0},
+                     { 0, 1, 0, 0}, { 0, 3, 0, 3},
                     { 1, 2, 2, 3}, { 0, 0, 0, 0 },
                     { 0, 0, 0, 0}, { 0, 0, 0, 0},
                      { 0, 0, 0, 0}, { 0, 0, 0, 0},
@@ -105,17 +104,16 @@ namespace PulseDemoGame
             tm.Load(this.Content, map, 60, 60, 1.0f);
             mc = new MapCollision();
 
-            mc.AttachTo(ball);
-            ball.AddComponet(mc);
+           // mc.AttachTo(ball);
+            ball.AddComponent(mc);
             mc.objectList = tm.Tiles;
 
-            
+            tm.ZPlane = 0;
+
             ball.surfaceCollision.Entities = tm.Tiles;
-            
-            
         }
 
-    
+
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -136,18 +134,15 @@ namespace PulseDemoGame
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
+            eNode.Update(gameTime);
             background.Update(gameTime);
             // TODO: Add your update logic here
-           background.TileHorizontal = true;
+            background.TileHorizontal = true;
             background.TileVertical = true;
-            background.VerticalSpeed = 1.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            //background.VerticalSpeed = 1.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
             background.HorizontalSpeed = 1.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            eNode.Update(gameTime);
-            tm.Offset_Y--;
-            tm.Update(gameTime);
-
             
-            mc.Update(gameTime);
+            tm.Offset_Y--;
             
             base.Update(gameTime);
         }
@@ -162,18 +157,19 @@ namespace PulseDemoGame
             float frameRate = 1 / (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
             //-----------------------------------------------
+            
             background.Draw(spriteBatch);
-
+            
             tm.Draw(spriteBatch);
 
             eNode.Draw(spriteBatch);
+
             // ----------------------------------------------
             spriteBatch.DrawString(spriteFont, "FPS: " 
                 + frameRate.ToString(), new Vector2(0, 0), Color.White);
-
-
+            
             spriteBatch.End();
 
             base.Draw(gameTime);

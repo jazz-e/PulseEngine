@@ -8,12 +8,22 @@ using PulseEngine.Objects.Sprite;
 
 namespace PulseEngine.Component.Collision
 {
-    public class MapCollision : IEntityComponent, IEntityUpdateComponent
+    public class MapCollisionArgs : EventArgs
+    {
+        public string AssetName { get; set; }
+        public Entity MapTile;
+    }
+
+    public delegate void MapCollisionHandler(object sender, MapCollisionArgs e);
+    
+    public class MapCollision : IEntityComponent, IEntityInitialiseComponent, IEntityUpdateComponent
     {
         protected Entity _parent;
 
         List<Entity> _objects
             = new List<Entity>();
+
+        public event MapCollisionHandler Collision;
 
         public List<Entity> objectList
         {
@@ -38,6 +48,8 @@ namespace PulseEngine.Component.Collision
 
         public void Update(GameTime gameTime)
         {
+            MapCollisionArgs _args = new MapCollisionArgs();
+
             BoundingRectangle br = 
                 new BoundingRectangle();
 
@@ -61,7 +73,12 @@ namespace PulseEngine.Component.Collision
                         ((BoundingRectangle)entity).Update(gameTime);
 
                        if(((BoundingRectangle)entity).Box.Intersects(br.Box))
-                            System.Diagnostics.Debug.Write("Worked!" + e.AssetName + "\n");
+                        {
+                            _args.AssetName = e.AssetName;
+                            _args.MapTile = e;
+                            if(Collision != null)
+                            Collision(this, _args);
+                        }
                     }
                 }
             }

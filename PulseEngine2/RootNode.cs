@@ -19,7 +19,6 @@ namespace PulseEngine
         #region "RootNode Methods"
         public RootNode()
             {}
-
         public void AttachNode(T node)
         {
             nodes.Add (node);
@@ -27,6 +26,7 @@ namespace PulseEngine
         public RootNode(T node)
         {
             this._parent = node;
+            AttachNode(node);
         }
         public T GetOwner()
         {
@@ -51,7 +51,7 @@ namespace PulseEngine
         { }
         public EntityNode(Entity entity) : 
             base (entity)
-        { }
+        {}
         public override void Initialise()
         {
             foreach(Entity entity in nodes)
@@ -59,11 +59,10 @@ namespace PulseEngine
                 entity.Initialise();
                
                 if (entity.Components.Count > 0)
-                    foreach (IEntityComponent e in entity.Components)
+                    foreach (IEntityInitialiseComponent e in entity.Components)
                         e.Initialise();
             }
-
-
+            
             base.Initialise();
         }
         public override void Load(ContentManager content)
@@ -96,8 +95,6 @@ namespace PulseEngine
             }
         }
         #endregion
-
-
     }
 
     public class WorldNode : RootNode<Level>

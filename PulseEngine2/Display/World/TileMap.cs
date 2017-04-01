@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using PulseEngine.Objects.Sprite;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -26,9 +23,11 @@ namespace PulseEngine.Display.World
         public int TileHeight { get; set; }
         public int Offset_X { get; set; }
         public int Offset_Y { get; set; }
+        public float ZPlane { get; set; }
 
         public TileMap()
         {
+            ZPlane = 0.05f;
             TileName.Add("_Blank_");
         }
 
@@ -62,8 +61,9 @@ namespace PulseEngine.Display.World
             _tile.Scale = scale;
 
             _boundingBox.AttachTo(_tile);
-            _tile.AddComponet(_boundingBox);
-            
+            _tile.AddComponent(_boundingBox);
+            _tile.ZPlane = this.ZPlane;
+
             if (index > 0 && index<TileName.Count)
             {
                 _tile.AssetName = TileName[index];

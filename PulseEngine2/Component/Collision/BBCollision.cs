@@ -15,7 +15,7 @@ namespace PulseEngine.Component.Collision
 
     public delegate void OnBoxOverlap(object sender, CollisionEventArgs e);
 
-    public class BBCollision : IEntityUpdateComponent
+    public class BBCollision : IEntityComponent, IEntityUpdateComponent
     {
         public event OnBoxOverlap Overlap;
           

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using PulseEngine.Component.Interfaces;
@@ -17,13 +15,13 @@ namespace PulseEngine.Component.Movement
     public class PressedArgs : EventArgs
     {
        public Keys Keypressed { get; set; }
-       public MovementState KState { get; set; }
+       public MovementState Action { get; set; }
        public float Velocity { get; set; }
        public Entity Attached { get; set; }
          
     }
 
-    public class PlayerController : IEntityComponent, IEntityUpdateComponent
+    public class PlayerController : IEntityComponent, IEntityInitialiseComponent, IEntityUpdateComponent
     {
         protected Entity _parent;
 
@@ -73,7 +71,7 @@ namespace PulseEngine.Component.Movement
                 if (Keyboard.GetState().IsKeyDown(kb.keys))
                 {
                     _args.Keypressed = kb.keys;
-                    _args.KState = kb.movementState;
+                    _args.Action = kb.movementState;
                     _args.Velocity = this.Speed;
                     _args.Attached = this._parent;
                             

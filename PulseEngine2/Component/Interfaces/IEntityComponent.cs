@@ -8,7 +8,6 @@ namespace PulseEngine.Component.Interfaces
 {
     public interface IEntityComponent
     {
-        void Initialise();
         void AttachTo(Entity entity);
         Entity GetOwner();
     }

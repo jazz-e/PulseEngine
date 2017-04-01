@@ -31,9 +31,9 @@ namespace PulseDemoGame.Classes
             surfaceCollision.AttachTo(this);
             
 
-            AddComponet(boundingBox);
-            AddComponet(screenCollision);
-            AddComponet(surfaceCollision);
+            AddComponent(boundingBox);
+            AddComponent(screenCollision);
+            AddComponent(surfaceCollision);
             
 
             base.Initialise();
@@ -43,12 +43,13 @@ namespace PulseDemoGame.Classes
 
         private void ScreenCollision_LeavingScreen(object sender, ScreenAreaArgs e)
         {
-            if (e.LeftScreen == LeftBy.Right ||
-                e.LeftScreen == LeftBy.Left)
+            foreach(LeftBy lb in e.LeftScreen)
+            if (lb == LeftBy.Right ||
+                lb == LeftBy.Left)
                 dx *= -1;
-
-            if (e.LeftScreen == LeftBy.Top && dy == -1  ||
-                e.LeftScreen == LeftBy.Bottom && dy ==1)
+            foreach(LeftBy lb in e.LeftScreen)
+            if (lb == LeftBy.Top && dy == -1  ||
+                lb == LeftBy.Bottom && dy ==1)
                 dy *= -1;
             
         }
@@ -73,6 +74,7 @@ namespace PulseDemoGame.Classes
         {
             if (e.ContactSide == Side.Top || e.ContactSide == Side.Bottom)
                 top = true;
+            
         }
     }
 }

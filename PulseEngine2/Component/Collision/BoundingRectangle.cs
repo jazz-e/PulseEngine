@@ -4,7 +4,7 @@ using PulseEngine.Component.Interfaces;
 
 namespace PulseEngine.Component.Collision
 {
-    public class BoundingRectangle :  IEntityUpdateComponent
+    public class BoundingRectangle :  IEntityComponent, IEntityUpdateComponent
     {
         public int OffsetLeft { get; set; }
         public int OffsetRight { get; set; }
