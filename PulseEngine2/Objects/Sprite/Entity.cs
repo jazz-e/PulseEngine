@@ -28,7 +28,7 @@ namespace PulseEngine.Objects.Sprite
         protected Entity _parent;
 
         //Public Members - Properties 
-        public Vector2 Position { get; set; }
+        public Vector2 Position { get; set;}
 
         public float RotationAngle { get; set; }
         protected float _scale;
@@ -69,9 +69,17 @@ namespace PulseEngine.Objects.Sprite
         {  }
         public virtual bool Load(ContentManager Content)
         {
-            if(AssetName != null)
-            _image = 
-                Content.Load<Texture2D>(AssetName);
+            if (AssetName != null)
+                try
+                {
+                    _image =
+                        Content.Load<Texture2D>(AssetName);
+                }
+                catch
+                {
+                    //Log Error
+                    return false;
+                }
 
             if (_image != null)
             {
@@ -94,8 +102,9 @@ namespace PulseEngine.Objects.Sprite
         }
         public virtual void Update(GameTime gameTime)
         {
-            Position +=
-                Velocity;
+            var delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            X += Velocity.X; // * delta;
+            Y += Velocity.Y; //* delta;
         }
 
         //Parenting 
@@ -136,5 +145,9 @@ namespace PulseEngine.Objects.Sprite
             }
         }
 
+        public virtual Entity Clone()
+        {
+            return (Entity)this.MemberwiseClone();
+        }
     }
 }

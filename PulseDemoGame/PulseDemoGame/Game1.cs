@@ -2,9 +2,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PulseEngine;
+using PulseEngine.Action;
 using PulseEngine.Component.Collision;
+using PulseEngine.Component.Instance;
 using PulseEngine.Component.Movement;
 using PulseEngine.Display.World;
+using PulseEngine.Objects.Sprite;
 
 namespace PulseDemoGame
 {
@@ -21,16 +24,12 @@ namespace PulseDemoGame
         EntityNode eNode =
             new EntityNode();
 
-        //--- Sprite --- 
-        Classes.Ball_Class ball = 
-            new Classes.Ball_Class();
+        //--- PULSE COMPONENT & ENTITY --- 
+        Entity entity = new Entity();
+        Spawn<Entity> spawn =
+                new Spawn<Entity>();
 
-        Background background;
-        
-        TileMap tm = new TileMap();
-        
-        MapCollision mc;
-       
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -47,18 +46,15 @@ namespace PulseDemoGame
         {
             // TODO: Add your initialization logic here
 
-            //Initialise Sprite 
-            
-            ball.AssetName = "sprite1";
-            ball.screenCollision =
-                new ScreenCollision(0, 0, this.Window.ClientBounds.Width,
-                this.Window.ClientBounds.Height);
-            ball.ZPlane = 1f;
+            eNode = new EntityNode(entity);
+            entity.X = entity.Y = 200;
 
-            eNode.AttachNode(ball);
-            background = new Background();
             
+           
+
+
             eNode.Initialise();
+            
             base.Initialize();
         }
         
@@ -75,42 +71,17 @@ namespace PulseDemoGame
             // TODO: use this.Content to load your game content here  
 
             spriteFont = this.Content.Load<SpriteFont>("SpriteFont1");
+
+            entity.AssetName ="ball";
             eNode.Load(this.Content);
-            background.assetName = "image1";
-            background.LoadContent(this.Content);
-            background.screenWidth = this.Window.ClientBounds.Width;
-            background.screenHeight = this.Window.ClientBounds.Height;
 
-            tm.TileName.Add("grassLeftBlock");
-            tm.TileName.Add("grassCenterBlock");
-            tm.TileName.Add("grassRightBlock");
+            entity.Velocity = new Vector2(1, 1);
+            spawn.SpawnType = entity;
+            spawn.Relative = true;
+            spawn.Initialise();
 
-            int[,] map =
-                new int[,] {
-                    { 0, 0, 0, 0}, { 0, 0, 0, 0 },
-                    { 1, 2, 2, 3}, { 0, 0, 0, 0 },
-                    { 0, 0, 0, 0}, { 0, 0, 0, 0},
-                     { 0, 0, 0, 0}, { 0, 0, 0, 0},
-                    { 1, 2, 2, 3}, { 0, 0, 0, 0},
-                    { 2, 0, 0, 0}, { 0, 0, 0, 0},
-                     { 0, 1, 0, 0}, { 0, 3, 0, 3},
-                    { 1, 2, 2, 3}, { 0, 0, 0, 0 },
-                    { 0, 0, 0, 0}, { 0, 0, 0, 0},
-                     { 0, 0, 0, 0}, { 0, 0, 0, 0},
-                     { 0, 0, 0, 0}, { 0, 0, 0, 0},
-                     { 0, 0, 0, 0},{ 1, 2, 2, 3}
-                };
-
-            tm.Load(this.Content, map, 60, 60, 1.0f);
-            mc = new MapCollision();
-
-           // mc.AttachTo(ball);
-            ball.AddComponent(mc);
-            mc.objectList = tm.Tiles;
-
-            tm.ZPlane = 0;
-
-            ball.surfaceCollision.Entities = tm.Tiles;
+            entity.Velocity = new Vector2(5, 5);
+            spawn.Initialise();
         }
 
 
@@ -134,16 +105,11 @@ namespace PulseDemoGame
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
+
+            spawn.Update(gameTime);
             eNode.Update(gameTime);
-            background.Update(gameTime);
-            // TODO: Add your update logic here
-            background.TileHorizontal = true;
-            background.TileVertical = true;
-            //background.VerticalSpeed = 1.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            background.HorizontalSpeed = 1.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            
-            tm.Offset_Y--;
-            
+
+          
             base.Update(gameTime);
         }
 
@@ -153,17 +119,14 @@ namespace PulseDemoGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
             float frameRate = 1 / (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
             //-----------------------------------------------
-            
-            background.Draw(spriteBatch);
-            
-            tm.Draw(spriteBatch);
 
+            spawn.Draw(spriteBatch);
             eNode.Draw(spriteBatch);
 
             // ----------------------------------------------

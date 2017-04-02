@@ -31,7 +31,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="sprite1.bmp">
-      <Name>sprite1</Name>
+      <Name>ball</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

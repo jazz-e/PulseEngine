@@ -26,8 +26,9 @@ namespace PulseEngine.Component.Movement
 
         public void Update(GameTime gameTime)
         {
-            _parent.Position +=
-                Velocity * gameTime.ElapsedGameTime.Seconds;
+              Vector2 v =  ( Velocity * gameTime.ElapsedGameTime.Seconds);
+            _parent.X += v.X;
+            _parent.Y += v.Y;
         }
     }
 }

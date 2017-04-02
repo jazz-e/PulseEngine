@@ -64,11 +64,15 @@
     <Compile Include="Component\Collision\MapCollision.cs" />
     <Compile Include="Component\Collision\ScreenCollision.cs" />
     <Compile Include="Component\Collision\SurfaceCollision.cs" />
+    <Compile Include="Component\Instance\Spawn.cs" />
     <Compile Include="Component\Interfaces\IEntityComponent.cs" />
     <Compile Include="Component\Interfaces\IEntityDrawComponent.cs" />
     <Compile Include="Component\Interfaces\IEntityInitialiseComponent.cs" />
     <Compile Include="Component\Interfaces\IEntityUpdateComponent.cs" />
-    <Compile Include="Component\Movement\MoveFixedDirection.cs" />
+    <Compile Include="Action\MoveFixed.cs" />
+    <Compile Include="Action\MoveFree.cs" />
+    <Compile Include="Action\MoveTowards.cs" />
+    <Compile Include="Component\Interfaces\IEventTrigger.cs" />
     <Compile Include="Component\Movement\PlayerController.cs" />
     <Compile Include="Component\Movement\PositionUpdate.cs" />
     <Compile Include="Display\IBackground.cs" />
@@ -83,7 +87,6 @@
     <Compile Include="RootNode.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Component\Unknown\" />
     <Folder Include="Display\Menu\" />
     <Folder Include="Display\Option\" />
   </ItemGroup>
