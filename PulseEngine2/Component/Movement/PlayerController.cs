@@ -8,6 +8,7 @@ using PulseEngine.Objects.Sprite;
 namespace PulseEngine.Component.Movement
 {
     public delegate void KeyPressedEventHandler(object sender, PressedArgs e);
+    public delegate void KeyReleaseEventHandler(object sender, PressedArgs e);
 
     public enum MovementState
     { None, Left, Right, Up, Down, Jump, Fire1, Fire2 }
@@ -18,7 +19,6 @@ namespace PulseEngine.Component.Movement
        public MovementState Action { get; set; }
        public float Velocity { get; set; }
        public Entity Attached { get; set; }
-         
     }
 
     public class PlayerController : IEntityComponent, IEntityInitialiseComponent, IEntityUpdateComponent
@@ -26,7 +26,8 @@ namespace PulseEngine.Component.Movement
         protected Entity _parent;
 
         public event KeyPressedEventHandler Pressed;
-              
+        public event KeyReleaseEventHandler Released;      
+
         public struct KeyBinding
         {
             public Keys keys;
@@ -77,7 +78,26 @@ namespace PulseEngine.Component.Movement
                             
                     if (Pressed != null)
                         Pressed(this, _args);
-                }      
+                }
+
+            bool flag =false;
+
+            foreach (KeyBinding kb in KeyBindings)
+                if (Keyboard.GetState().IsKeyDown(kb.keys))
+                {
+                    return;   
+                }
+            else { flag = true; }
+
+            if(flag)
+            {
+                _args.Action = MovementState.None;
+                _args.Velocity = this.Speed;
+                _args.Attached = this._parent;
+
+                if (Released != null)
+                    Released(this, _args);
+            }
         }
     }
 }
