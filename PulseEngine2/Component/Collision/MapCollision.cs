@@ -64,8 +64,6 @@ namespace PulseEngine.Component.Collision
 
             foreach (Entity e in _objects)
             {
-                
-                
                 foreach(IEntityUpdateComponent entity in e.UpdateComponents)
                 {
                     if (entity is BoundingRectangle)
