@@ -25,6 +25,7 @@ namespace PulseEngine.Component.Collision
         }
         public void Update (GameTime gameTime)
         {
+            if(_parent != null)
             Box =
                 new Rectangle((int)_parent.Position.X + OffsetLeft,
                (int)_parent.Position.Y + OffsetTop,

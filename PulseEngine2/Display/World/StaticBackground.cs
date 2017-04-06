@@ -23,11 +23,20 @@ namespace PulseEngine.Display.World
         protected int width, height;
         public int screenWidth, screenHeight;
 
-        public void LoadContent(ContentManager content)
+        public virtual void Load(ContentManager content)
         {
-            _image = content.Load<Texture2D>(assetName);
-            if(_image != null)
-            { width = _image.Width; height = _image.Height; }
+            try
+            {
+                if(assetName != null)
+                _image = content.Load<Texture2D>(assetName);
+               
+                if (_image != null)
+                { width = _image.Width; height = _image.Height; }
+            }
+            catch
+            {
+                return;
+            }
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)

@@ -83,11 +83,12 @@ namespace PulseEngine.Component.Movement
             bool flag =false;
 
             foreach (KeyBinding kb in KeyBindings)
-                if (Keyboard.GetState().IsKeyDown(kb.keys))
+                if (!Keyboard.GetState().IsKeyDown(kb.keys))
                 {
-                    return;   
+                    flag = true;
                 }
-            else { flag = true; }
+                else
+                    return;
 
             if(flag)
             {

@@ -14,7 +14,7 @@ namespace PulseEngine.Display
             get;set;
         }
         
-        void LoadContent(ContentManager content);
+        void Load(ContentManager content);
         void Draw(SpriteBatch spriteBatch);
     }
 }

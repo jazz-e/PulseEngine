@@ -29,7 +29,8 @@ namespace PulseEngine.Component.Instance
 
         public void Initialise()
         {
-            T _temp;
+            T _temp = null;
+            if((T)SpawnType != null)
             _temp =(T)SpawnType.Clone();
 
             if (Relative)
@@ -67,7 +68,6 @@ namespace PulseEngine.Component.Instance
             foreach (T t in spawnList)
                 t.Draw(spriteBatch);
         }
-
         
     }
 }
