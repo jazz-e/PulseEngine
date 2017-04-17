@@ -18,17 +18,23 @@ namespace PulseDemoGame
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        
+
+        // ---- Surface -----
+        TileMap tm 
+            = new TileMap();
+
         SpriteFont spriteFont;
+  
         //--- Node  First --- 
         EntityNode eNode =
             new EntityNode();
-
+        
         //--- PULSE COMPONENT & ENTITY --- 
         Entity entity = new Entity();
-        Spawn<Entity> spawn =
-                new Spawn<Entity>();
 
+        Gravity gravity = new Gravity();
+        BoundingRectangle bounding = new BoundingRectangle();
+        PlayerController control = new PlayerController();
 
         public Game1()
         {
@@ -47,17 +53,36 @@ namespace PulseDemoGame
             // TODO: Add your initialization logic here
 
             eNode = new EntityNode(entity);
-            entity.X = entity.Y = 200;
+            entity.X = entity.Y = 0;
 
-            
-           
-
-
+            control.AddKeyBinding(Keys.A, MovementState.Left);
+            control.AddKeyBinding(Keys.D, MovementState.Right);
+            control.Pressed += Control_Pressed;
+            control.Released += Control_Released; ;
+            entity.AddComponent(bounding);
+            entity.AddComponent(control);
+                
             eNode.Initialise();
-            
+
             base.Initialize();
         }
-        
+
+        private void Control_Released(object sender, PressedArgs e)
+        {
+            e.Attached.Velocity
+                = new Vector2(0, e.Attached.Velocity.Y);
+        }
+
+        private void Control_Pressed(object sender, PressedArgs e)
+        {
+            if (e.Action == MovementState.Left)
+                e.Attached.X += -2;
+
+            if (e.Action == MovementState.Right)
+                e.Attached.X += +2;
+
+        }
+
 
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -69,19 +94,33 @@ namespace PulseDemoGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here  
+            int[,] map = new int[,] { 
+                { 0, 0, 0 },
+                { 0, 0, 0 },
+                { 0, 0, 0 },
+                { 1, 1, 0 },
+                { 0, 0, 0 },
+                { 1, 1, 1 }
+            };
 
+            tm.TileName.Add("ball");
+
+            tm.Load(this.Content, map,
+                32,32, 1.0f);
+            
+            gravity.Force = 0.1f;
+            gravity.tileMap = tm;
+            
+            entity.AddComponent(gravity);
+            
             spriteFont = this.Content.Load<SpriteFont>("SpriteFont1");
 
             entity.AssetName ="ball";
             eNode.Load(this.Content);
 
-            entity.Velocity = new Vector2(1, 1);
-            spawn.SpawnType = entity;
-            spawn.Relative = true;
-            spawn.Initialise();
-
-            entity.Velocity = new Vector2(5, 5);
-            spawn.Initialise();
+            entity.X = 32;
+            entity.Y = 0;
+            gravity.Initialise();
         }
 
 
@@ -106,10 +145,10 @@ namespace PulseDemoGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            spawn.Update(gameTime);
+            tm.Update(gameTime);
+            
             eNode.Update(gameTime);
-
-          
+            
             base.Update(gameTime);
         }
 
@@ -126,7 +165,8 @@ namespace PulseDemoGame
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
             //-----------------------------------------------
 
-            spawn.Draw(spriteBatch);
+            tm.Draw(spriteBatch);
+  
             eNode.Draw(spriteBatch);
 
             // ----------------------------------------------

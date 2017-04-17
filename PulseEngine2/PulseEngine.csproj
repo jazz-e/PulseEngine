@@ -74,6 +74,7 @@
     <Compile Include="Action\MoveFree.cs" />
     <Compile Include="Action\MoveTowards.cs" />
     <Compile Include="Component\Interfaces\IEventTrigger.cs" />
+    <Compile Include="Component\Movement\Gravity.cs" />
     <Compile Include="Component\Movement\PlayerController.cs" />
     <Compile Include="Component\Movement\PositionUpdate.cs" />
     <Compile Include="Display\IBackground.cs" />
@@ -90,6 +91,9 @@
   <ItemGroup>
     <Folder Include="Display\Menu\" />
     <Folder Include="Display\Option\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />

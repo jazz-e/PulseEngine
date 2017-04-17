@@ -59,96 +59,113 @@ namespace PulseEngine.Component.Collision
                     foreach (IEntityUpdateComponent _listEntity in ListEntity.UpdateComponents)
                         if (_listEntity is BoundingRectangle && !ListEntity.AssetName.Contains("_Blank_"))
                         {
+                            _listEntity.Update(gameTime);
+
                             _x = ((BoundingRectangle)_listEntity).Box.X;
                             _y = ((BoundingRectangle)_listEntity).Box.Y;
                             _width = ((BoundingRectangle)_listEntity).Box.Width;
                             _height = ((BoundingRectangle)_listEntity).Box.Height;
+                            break;
                         }
+                        
 
-                   // if (_width <= 0 && _height <= 0) return;
-
-                    Rectangle BBOtherEntity =
-                        new Rectangle(_x, _y, _width, _height);
-
-                    foreach (IEntityUpdateComponent entity in _parent.UpdateComponents)
-                        if (entity is BoundingRectangle)
-                        {
-                            this_x = ((BoundingRectangle)entity).Box.X;
-                            this_y = ((BoundingRectangle)entity).Box.Y;
-                            this_width = ((BoundingRectangle)entity).Box.Width;
-                            this_height = ((BoundingRectangle)entity).Box.Height;
-                        }
-
-                    Rectangle BBEntity =
-                        new Rectangle(this_x, this_y, this_width, this_height);
-
-                    Rectangle temp;
-
-                    // Is there a collision?
-                    if(BBEntity.Intersects(BBOtherEntity))
+                    if (_width > 0 && _height > 0)
                     {
-                        // Left Side Collision 
-                        temp =
-                             new Rectangle(BBOtherEntity.Left - Penetration, 
-                             BBOtherEntity.Top + Penetration,
-                             Penetration, BBOtherEntity.Bottom - Penetration);
+                        Rectangle BBOtherEntity =
+                            new Rectangle(_x, _y, _width, _height);
 
-                        if(BBEntity.Intersects(temp))
+                        foreach (IEntityUpdateComponent entity in _parent.UpdateComponents)
+                            if (entity is BoundingRectangle)
+                            {
+                                this_x = ((BoundingRectangle)entity).Box.X;
+                                this_y = ((BoundingRectangle)entity).Box.Y;
+                                this_width = ((BoundingRectangle)entity).Box.Width;
+                                this_height = ((BoundingRectangle)entity).Box.Height;
+                            }
+
+                        Rectangle BBEntity =
+                            new Rectangle(this_x, this_y, this_width, this_height);
+
+                        Rectangle temp;
+
+                        // Is there a collision?
+                        if (BBEntity.Intersects(BBOtherEntity))
                         {
-                            _args.ContactSide = Side.Left;
-                            _args.ContactEntity = ListEntity;
+                            // Left Side Collision 
+                            temp =
+                                 new Rectangle(BBOtherEntity.Left - Penetration,
+                                 BBOtherEntity.Top + Penetration,
+                                 Penetration, BBOtherEntity.Bottom - Penetration);
 
-                            if (Collision != null)
-                                Collision(this, _args);
+                            if (BBEntity.Intersects(temp))
+                            {
+                                _args.ContactSide = Side.Left;
+                                _args.ContactEntity = ListEntity;
+
+                                if (Collision != null)
+                                    Collision(this, _args);
+                                return;
+                            }
+
+                            //Right Side Collision 
+                            temp =
+                                 new Rectangle(BBOtherEntity.Right + Penetration,
+                                 BBOtherEntity.Top + Penetration,
+                                 Penetration, BBOtherEntity.Bottom - Penetration);
+
+                            if (BBEntity.Intersects(temp))
+                            {
+                                _args.ContactSide = Side.Right;
+                                _args.ContactEntity = ListEntity;
+
+                                if (Collision != null)
+                                    Collision(this, _args);
+                                return;
+                            }
+
+                            //Top Side Collision
+                            temp =
+                                 new Rectangle(BBOtherEntity.Left,
+                                 BBOtherEntity.Top - Penetration,
+                                 BBOtherEntity.Width, Penetration);
+
+                            if (BBEntity.Intersects(temp))
+                            {
+                                _args.ContactSide = Side.Top;
+                                _args.ContactEntity = ListEntity;
+
+                                if (Collision != null)
+                                    Collision(this, _args);
+                                return;
+                            }
+
+                            //Bottom Side Collision
+                            temp =
+                                 new Rectangle(BBOtherEntity.Left,
+                                 BBOtherEntity.Bottom - Penetration,
+                                 BBOtherEntity.Width, Penetration);
+
+                            if (BBEntity.Intersects(temp))
+                            {
+                                _args.ContactSide = Side.Bottom;
+                                _args.ContactEntity = ListEntity;
+
+                                if (Collision != null)
+                                    Collision(this, _args);
+                                return;
+                            }
+                            
                         }
 
-                        //Right Side Collision 
-                        temp =
-                             new Rectangle(BBOtherEntity.Right + Penetration, 
-                             BBOtherEntity.Top + Penetration,
-                             Penetration, BBOtherEntity.Bottom - Penetration);
-
-                        if (BBEntity.Intersects(temp))
+                        if(!BBEntity.Intersects(BBOtherEntity))
                         {
-                            _args.ContactSide = Side.Right;
-                            _args.ContactEntity = ListEntity;
-
-                            if(Collision != null)
-                            Collision(this, _args);
-                        }
-
-                        //Top Side Collision
-                        temp =
-                             new Rectangle(BBOtherEntity.Left, 
-                             BBOtherEntity.Top - Penetration,
-                             BBOtherEntity.Width, Penetration);
-
-                        if (BBEntity.Intersects(temp))
-                        {
-                            _args.ContactSide = Side.Top;
-                            _args.ContactEntity = ListEntity;
-
-                            if (Collision != null)
-                                Collision(this, _args);
-                        }
-
-                        //Bottom Side Collision
-                        temp =
-                             new Rectangle(BBOtherEntity.Left,
-                             BBOtherEntity.Bottom - Penetration,
-                             BBOtherEntity.Width, Penetration);
-
-                        if (BBEntity.Intersects(temp))
-                        {
-                            _args.ContactSide = Side.Bottom;
-                            _args.ContactEntity = ListEntity;
+                            _args.ContactSide = Side.None;
+                            _args.ContactEntity = null;
 
                             if (Collision != null)
                                 Collision(this, _args);
                         }
                     }
-
-                    
                 }
         }
     }
