@@ -14,10 +14,7 @@ namespace PulseEngine.Component.Movement
     {
         Entity _parent;
 
-        int _dx;
-        bool _ground;
-
-        public float Force { get; set; }
+        public float GravityForce { get; set; }
 
         Vector2 _velocity;
 
@@ -40,9 +37,7 @@ namespace PulseEngine.Component.Movement
         public void Initialise()
         {
             surfaceCollision = new SurfaceCollision();
-
-            _dx = 0;
-
+            
             if (this.tileMap != null)
             {
                 surfaceCollision.Entities = this.tileMap.Tiles;
@@ -67,22 +62,12 @@ namespace PulseEngine.Component.Movement
         {
             if (_collisionSide != Side.Top)
             {
-                _velocity.Y += this.Force * 0.015f;
+                _velocity.Y += this.GravityForce * gameTime.ElapsedGameTime.Milliseconds; //0.015f;
                 _parent.Velocity +=
                     _velocity;
             }
         }
-
-        private void Push(GameTime gameTime)
-        {
-
-        }
-
-        private bool Collision()
-        {
-            return false;
-        }
-
+        
         private bool AboveGround()
         {
             if (_collisionSide != Side.Top)
@@ -93,7 +78,7 @@ namespace PulseEngine.Component.Movement
 
         public void Update(GameTime gameTime)
         {
-            surfaceCollision.Penetration = 3;
+            surfaceCollision.Penetration = 8;
 
             surfaceCollision.Update(gameTime);
             
@@ -101,7 +86,9 @@ namespace PulseEngine.Component.Movement
             if (this.AboveGround())
                 Fall(gameTime);
             else
-                _parent.Velocity = Vector2.Zero;
+                _parent.Velocity =
+                    new Vector2(_parent.Velocity.X
+                    , -GravityForce * gameTime.ElapsedGameTime.Seconds);
 
             if (_collisionSide == Side.Top)
             { 

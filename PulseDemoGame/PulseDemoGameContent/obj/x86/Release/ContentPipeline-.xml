@@ -3,11 +3,11 @@
   <Asset Type="Pipeline:BuildItemCollection">
     <Item>
       <Source>sprite1.bmp</Source>
-      <Name>sprite1</Name>
+      <Name>ball</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\dead_\Documents\Visual Studio 2015\Projects\PulseEngine\PulseDemoGame\PulseDemoGame\bin\x86\Release\Content\sprite1.xnb</Output>
+      <Output>C:\Users\dead_\Documents\Visual Studio 2015\Projects\PulseEngine\PulseDemoGame\PulseDemoGame\bin\x86\Release\Content\ball.xnb</Output>
       <Time>2017-02-19T13:20:55.5612554+00:00</Time>
     </Item>
     <Item>

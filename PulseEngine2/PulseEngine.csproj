@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Action\BoxCheck.cs" />
+    <Compile Include="Action\JumpTo.cs" />
     <Compile Include="Component\Collision\BBCollision.cs" />
     <Compile Include="Component\Collision\BoundingRectangle.cs" />
     <Compile Include="Component\Collision\MapCollision.cs" />

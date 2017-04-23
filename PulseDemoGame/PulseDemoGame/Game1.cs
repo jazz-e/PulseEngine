@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+
 using PulseEngine;
 using PulseEngine.Action;
 using PulseEngine.Component.Collision;
@@ -35,7 +36,7 @@ namespace PulseDemoGame
         Gravity gravity = new Gravity();
         BoundingRectangle bounding = new BoundingRectangle();
         PlayerController control = new PlayerController();
-
+        JumpTo jumpTo;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -57,11 +58,14 @@ namespace PulseDemoGame
 
             control.AddKeyBinding(Keys.A, MovementState.Left);
             control.AddKeyBinding(Keys.D, MovementState.Right);
+            control.AddKeyBinding(Keys.Space, MovementState.Up);
+
             control.Pressed += Control_Pressed;
-            control.Released += Control_Released; ;
+            control.Released += Control_Released;
+
             entity.AddComponent(bounding);
             entity.AddComponent(control);
-                
+            
             eNode.Initialise();
 
             base.Initialize();
@@ -75,12 +79,17 @@ namespace PulseDemoGame
 
         private void Control_Pressed(object sender, PressedArgs e)
         {
+            JumpTo.Relative = true;
+
             if (e.Action == MovementState.Left)
                 e.Attached.X += -2;
 
             if (e.Action == MovementState.Right)
                 e.Attached.X += +2;
 
+            if (e.Action == MovementState.Up && jumpTo != null)
+                if(!jumpTo.hasJumped)
+                jumpTo = new JumpTo(entity, new Vector2(0, -entity.Height * 2));
         }
 
 
@@ -108,7 +117,7 @@ namespace PulseDemoGame
             tm.Load(this.Content, map,
                 32,32, 1.0f);
             
-            gravity.Force = 0.1f;
+            gravity.GravityForce = 0.001f;
             gravity.tileMap = tm;
             
             entity.AddComponent(gravity);
@@ -118,6 +127,8 @@ namespace PulseDemoGame
             entity.AssetName ="ball";
             eNode.Load(this.Content);
 
+            JumpTo.Relative = true;
+         
             entity.X = 32;
             entity.Y = 0;
             gravity.Initialise();
@@ -146,7 +157,10 @@ namespace PulseDemoGame
                 this.Exit();
 
             tm.Update(gameTime);
-            
+
+            if (jumpTo != null)
+                jumpTo.Update(gameTime);
+             
             eNode.Update(gameTime);
             
             base.Update(gameTime);
