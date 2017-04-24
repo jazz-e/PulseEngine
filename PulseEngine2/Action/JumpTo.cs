@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using PulseEngine.Component.Interfaces;
 using PulseEngine.Objects.Sprite;
 using System;
 using System.Collections.Generic;
@@ -7,44 +8,52 @@ using System.Text;
 
 namespace PulseEngine.Action
 {
-    public class JumpTo
-    {
-        static JumpTo instance = null;
-        Entity _AppliesTo;
+    public class Jump : IEntityComponent, IEntityUpdateComponent
+     {
+        Entity _parent;
 
-        public static bool Relative { get; set; }
-        public Vector2 Peak;
-        public bool hasJumped;
+        public float Force { get; set; }
+        public bool hasJumped { get; set; }
 
-        public static JumpTo GetInstance(Entity AppliesTo, Vector2 position)
+        float _peak;
+
+        public Jump()
         {
-            if (instance == null)
-                instance = new JumpTo(AppliesTo, position);
-
-            return instance;
+            hasJumped = false; 
         }
 
-        public JumpTo(Entity AppliesTo, Vector2 position)
+        public void Start()
         {
-            _AppliesTo = AppliesTo;
-
-            if (Relative)
-               Peak = _AppliesTo.Position + position; 
-
-            if (!Relative)
-               _AppliesTo.Position = position; 
-            
-            hasJumped = true; 
+            if (!hasJumped)
+            { 
+                hasJumped = true;
+                _peak = _parent.Position.Y - Force;
+            }
         }
 
         public void Update(GameTime gameTime)
         {
-            if (_AppliesTo.Position.Y > Peak.Y && hasJumped)
+            if (!hasJumped) return;
+
+            if (_parent.Position.Y >= _peak && hasJumped)
             {
-                _AppliesTo.Y -= 1f * gameTime.ElapsedGameTime.Seconds;
+                _parent.Y -= 4f;
             }
             else
+            {
                 hasJumped = false;
+                _peak = 0f;
+            }
+        }
+
+        public void AttachTo(Entity entity)
+        {
+            _parent = entity;
+        }
+
+        public Entity GetOwner()
+        {
+            return _parent;
         }
     }
 }

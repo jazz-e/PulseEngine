@@ -36,7 +36,9 @@ namespace PulseDemoGame
         Gravity gravity = new Gravity();
         BoundingRectangle bounding = new BoundingRectangle();
         PlayerController control = new PlayerController();
-        JumpTo jumpTo;
+        Jump jumpTo = new Jump();
+        bool hasJumped; 
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -65,7 +67,10 @@ namespace PulseDemoGame
 
             entity.AddComponent(bounding);
             entity.AddComponent(control);
-            
+
+            jumpTo.Force = 8f;
+            entity.AddComponent(jumpTo);
+
             eNode.Initialise();
 
             base.Initialize();
@@ -75,21 +80,21 @@ namespace PulseDemoGame
         {
             e.Attached.Velocity
                 = new Vector2(0, e.Attached.Velocity.Y);
+            hasJumped = false;
         }
 
         private void Control_Pressed(object sender, PressedArgs e)
         {
-            JumpTo.Relative = true;
-
+            
             if (e.Action == MovementState.Left)
                 e.Attached.X += -2;
 
             if (e.Action == MovementState.Right)
                 e.Attached.X += +2;
 
-            if (e.Action == MovementState.Up && jumpTo != null)
-                if(!jumpTo.hasJumped)
-                jumpTo = new JumpTo(entity, new Vector2(0, -entity.Height * 2));
+            if (e.Action == MovementState.Up && !hasJumped)
+            { jumpTo.Start(); hasJumped = true; }
+
         }
 
 
@@ -127,8 +132,6 @@ namespace PulseDemoGame
             entity.AssetName ="ball";
             eNode.Load(this.Content);
 
-            JumpTo.Relative = true;
-         
             entity.X = 32;
             entity.Y = 0;
             gravity.Initialise();
@@ -158,7 +161,7 @@ namespace PulseDemoGame
 
             tm.Update(gameTime);
 
-            if (jumpTo != null)
+            if (jumpTo != null && jumpTo.hasJumped)
                 jumpTo.Update(gameTime);
              
             eNode.Update(gameTime);

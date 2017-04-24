@@ -70,9 +70,10 @@ namespace PulseEngine.Component.Movement
         
         private bool AboveGround()
         {
-            if (_collisionSide != Side.Top)
+            if (_collisionSide == Side.None)
                 return true;
 
+            GravityForce = 0;
             return false;
         }
 
@@ -81,14 +82,12 @@ namespace PulseEngine.Component.Movement
             surfaceCollision.Penetration = 8;
 
             surfaceCollision.Update(gameTime);
-            
+
             //Move Entity Down
             if (this.AboveGround())
                 Fall(gameTime);
             else
-                _parent.Velocity =
-                    new Vector2(_parent.Velocity.X
-                    , -GravityForce * gameTime.ElapsedGameTime.Seconds);
+                _parent.Velocity = Vector2.Zero;
 
             if (_collisionSide == Side.Top)
             { 
