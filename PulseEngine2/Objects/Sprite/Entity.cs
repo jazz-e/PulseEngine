@@ -42,7 +42,7 @@ namespace PulseEngine.Objects.Sprite
         protected float _x, _y;
         public float X { get { return _x; } set { _x = value; SetPosition(); } }
         public float Y { get { return _y; } set { _y = value; SetPosition(); } }
-        public Vector2 Velocity { get; set; }
+        public Vector2 Velocity; // { get; set; }
 
         protected void SetPosition ()
         {

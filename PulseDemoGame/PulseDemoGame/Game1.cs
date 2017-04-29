@@ -68,7 +68,7 @@ namespace PulseDemoGame
             entity.AddComponent(bounding);
             entity.AddComponent(control);
 
-            jumpTo.Force = 8f;
+            jumpTo.Force = 34f;
             entity.AddComponent(jumpTo);
 
             eNode.Initialise();
@@ -80,6 +80,7 @@ namespace PulseDemoGame
         {
             e.Attached.Velocity
                 = new Vector2(0, e.Attached.Velocity.Y);
+
             hasJumped = false;
         }
 
@@ -92,7 +93,7 @@ namespace PulseDemoGame
             if (e.Action == MovementState.Right)
                 e.Attached.X += +2;
 
-            if (e.Action == MovementState.Up && !hasJumped)
+            if (e.Action == MovementState.Up && !hasJumped && e.Attached.Velocity.Y == 0)
             { jumpTo.Start(); hasJumped = true; }
 
         }
@@ -135,6 +136,7 @@ namespace PulseDemoGame
             entity.X = 32;
             entity.Y = 0;
             gravity.Initialise();
+            gravity.surfaceCollision.Penetration = 8;
         }
 
 
@@ -160,10 +162,7 @@ namespace PulseDemoGame
                 this.Exit();
 
             tm.Update(gameTime);
-
-            if (jumpTo != null && jumpTo.hasJumped)
-                jumpTo.Update(gameTime);
-             
+            
             eNode.Update(gameTime);
             
             base.Update(gameTime);

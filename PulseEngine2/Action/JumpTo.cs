@@ -28,6 +28,8 @@ namespace PulseEngine.Action
             { 
                 hasJumped = true;
                 _peak = _parent.Position.Y - Force;
+
+                if (_peak < 0) _peak = 0;
             }
         }
 
@@ -35,14 +37,14 @@ namespace PulseEngine.Action
         {
             if (!hasJumped) return;
 
-            if (_parent.Position.Y >= _peak && hasJumped)
+            if (hasJumped)
             {
-                _parent.Y -= 4f;
+                _parent.Velocity.Y -= 0.050f * (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             }
-            else
+
+            if(_parent.Position.Y <= _peak )
             {
                 hasJumped = false;
-                _peak = 0f;
             }
         }
 

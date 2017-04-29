@@ -22,7 +22,7 @@ namespace PulseEngine.Component.Movement
 
         public TileMap tileMap { get; set; }
 
-        SurfaceCollision surfaceCollision;
+        public SurfaceCollision surfaceCollision;
         
         public void AttachTo(Entity entity)
         {
@@ -37,7 +37,8 @@ namespace PulseEngine.Component.Movement
         public void Initialise()
         {
             surfaceCollision = new SurfaceCollision();
-            
+            surfaceCollision.Penetration = 8;
+
             if (this.tileMap != null)
             {
                 surfaceCollision.Entities = this.tileMap.Tiles;
@@ -62,7 +63,7 @@ namespace PulseEngine.Component.Movement
         {
             if (_collisionSide != Side.Top)
             {
-                _velocity.Y += this.GravityForce * gameTime.ElapsedGameTime.Milliseconds; //0.015f;
+                _velocity.Y += this.GravityForce * (float)gameTime.ElapsedGameTime.TotalMilliseconds; //0.015f;
                 _parent.Velocity +=
                     _velocity;
             }
@@ -79,8 +80,6 @@ namespace PulseEngine.Component.Movement
 
         public void Update(GameTime gameTime)
         {
-            surfaceCollision.Penetration = 8;
-
             surfaceCollision.Update(gameTime);
 
             //Move Entity Down
@@ -93,6 +92,7 @@ namespace PulseEngine.Component.Movement
             { 
                 _collisionSide = Side.None;
             }
+        
         }
     }
 }
