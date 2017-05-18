@@ -75,6 +75,7 @@
     <Compile Include="Action\MoveFree.cs" />
     <Compile Include="Action\MoveTowards.cs" />
     <Compile Include="Component\Interfaces\IEventTrigger.cs" />
+    <Compile Include="Component\Movement\Path.cs" />
     <Compile Include="Component\Movement\Gravity.cs" />
     <Compile Include="Component\Movement\PlayerController.cs" />
     <Compile Include="Component\Movement\PositionUpdate.cs" />

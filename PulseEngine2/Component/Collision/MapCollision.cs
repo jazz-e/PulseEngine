@@ -16,7 +16,7 @@ namespace PulseEngine.Component.Collision
 
     public delegate void MapCollisionHandler(object sender, MapCollisionArgs e);
     
-    public class MapCollision : IEntityComponent, IEntityInitialiseComponent, IEntityUpdateComponent
+    public class MapCollision : IEntityComponent,  IEntityUpdateComponent
     {
         protected Entity _parent;
 
@@ -39,11 +39,6 @@ namespace PulseEngine.Component.Collision
         public Entity GetOwner()
         {
             return this._parent;
-        }
-
-        public void Initialise()
-        {
-            //Do Nothing
         }
 
         public void Update(GameTime gameTime)

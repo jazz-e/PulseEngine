@@ -43,7 +43,8 @@ namespace PulseEngine.Component.Movement
             {
                 surfaceCollision.Entities = this.tileMap.Tiles;
                 surfaceCollision.Collision += TileCollision;
-               
+
+                if (_parent != null)
                 _parent.AddComponent(surfaceCollision);
             }
         }
@@ -80,6 +81,8 @@ namespace PulseEngine.Component.Movement
 
         public void Update(GameTime gameTime)
         {
+            if (_parent == null) return;
+
             surfaceCollision.Update(gameTime);
 
             //Move Entity Down

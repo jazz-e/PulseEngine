@@ -20,6 +20,8 @@ namespace PulseDemoGame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        //List of Entities
+        
         // ---- Surface -----
         TileMap tm 
             = new TileMap();
@@ -37,8 +39,10 @@ namespace PulseDemoGame
         BoundingRectangle bounding = new BoundingRectangle();
         PlayerController control = new PlayerController();
         Jump jumpTo = new Jump();
-        bool hasJumped; 
+        bool hasJumped;
 
+        FollowPath fp = new FollowPath();
+        
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -65,14 +69,28 @@ namespace PulseDemoGame
             control.Pressed += Control_Pressed;
             control.Released += Control_Released;
 
+            fp.Speed = 100f;
+            fp.Status = PathStatus.Forward;
+            fp.Loop = true;
+            
+            Vector2[] p = new Vector2[]{
+                new Vector2(95, 32), new Vector2(200, 32),
+                new Vector2 (200, 200), new Vector2(64, 200),
+                new Vector2(64,32)
+            };
+
+            fp.Path = p;
+
             entity.AddComponent(bounding);
             entity.AddComponent(control);
+            entity.AddComponent(fp);
 
             jumpTo.Force = 34f;
             entity.AddComponent(jumpTo);
-
+            fp.Initialise();
             eNode.Initialise();
 
+            
             base.Initialize();
         }
 
@@ -110,12 +128,12 @@ namespace PulseDemoGame
 
             // TODO: use this.Content to load your game content here  
             int[,] map = new int[,] { 
-                { 0, 0, 0 },
-                { 0, 0, 0 },
-                { 0, 0, 0 },
-                { 1, 1, 0 },
-                { 0, 0, 0 },
-                { 1, 1, 1 }
+                { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+                { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+                { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+                { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+                { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+                { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
             };
 
             tm.TileName.Add("ball");
@@ -126,17 +144,21 @@ namespace PulseDemoGame
             gravity.GravityForce = 0.001f;
             gravity.tileMap = tm;
             
-            entity.AddComponent(gravity);
+            //entity.AddComponent(gravity);
             
             spriteFont = this.Content.Load<SpriteFont>("SpriteFont1");
 
             entity.AssetName ="ball";
             eNode.Load(this.Content);
 
-            entity.X = 32;
-            entity.Y = 0;
+            entity.X = 64;
+            entity.Y = 32;
+
             gravity.Initialise();
             gravity.surfaceCollision.Penetration = 8;
+
+            
+
         }
 
 

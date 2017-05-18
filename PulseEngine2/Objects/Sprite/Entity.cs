@@ -27,8 +27,9 @@ namespace PulseEngine.Objects.Sprite
         protected Texture2D _image; //Reference to Image Asset
         protected Entity _parent;
 
-        //Public Members - Properties 
-        public Vector2 Position { get; set;}
+        //Public Members - Properties
+        protected Vector2 _position; 
+        public Vector2 Position { get { return this._position; } set { this._position = value; SetXY(); } }
 
         public float RotationAngle { get; set; }
         protected float _scale;
@@ -46,9 +47,16 @@ namespace PulseEngine.Objects.Sprite
 
         protected void SetPosition ()
         {
-            Position =
+            _position =
                 new Vector2(this._x, this._y);
         }
+
+        protected void SetXY()
+        {
+            this._x = this._position.X;
+            this._y = this._position.Y;
+        }
+
         protected void SetScale()
         {
             if (_image != null)
