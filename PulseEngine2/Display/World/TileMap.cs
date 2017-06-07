@@ -56,10 +56,10 @@ namespace PulseEngine.Display.World
             new BoundingRectangle();
 
         Entity _tile;
-            _tile = new Entity();
-
-            _tile.Scale = scale;
-
+            _tile = new Entity()
+            {
+                Scale = scale
+            };
             _boundingBox.AttachTo(_tile);
             _tile.AddComponent(_boundingBox);
             _tile.ZPlane = this.ZPlane;

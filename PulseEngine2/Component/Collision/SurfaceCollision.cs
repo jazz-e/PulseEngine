@@ -50,9 +50,10 @@ namespace PulseEngine.Component.Collision
             int _x = 0, _y = 0, _width = 0, _height = 0;
             int this_x = 0, this_y = 0, this_width = 0, this_height = 0;
 
-            SideCollisionArgs _args = new SideCollisionArgs();
-            _args.ContactSide = Side.None;
-
+            SideCollisionArgs _args = new SideCollisionArgs()
+            {
+                ContactSide = Side.None
+            };
             if (_parent != null)
                 foreach (Entity ListEntity in Entities)
                 {

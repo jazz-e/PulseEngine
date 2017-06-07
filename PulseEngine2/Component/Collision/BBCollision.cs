@@ -53,16 +53,19 @@ namespace PulseEngine.Component.Collision
                         {
                             if (((BoundingRectangle)entity).Box.Intersects(OtherBox.Box))
                             {
-                                CollisionEventArgs _args = new CollisionEventArgs();
-                                _args.CollidedWith = OtherBox.GetOwner();
+                                CollisionEventArgs _args = new CollisionEventArgs()
+                                {
+                                    CollidedWith = OtherBox.GetOwner()
+                                };
                                 if (Overlap != null)
                                     Overlap(this, _args);
                             }
                             else
                             {
-                                CollisionEventArgs _args = new CollisionEventArgs();
-                                _args.CollidedWith = OtherBox.GetOwner();
-
+                                CollisionEventArgs _args = new CollisionEventArgs()
+                                {
+                                    CollidedWith = OtherBox.GetOwner()
+                                };
                                 if (NoOverlap != null)
                                     NoOverlap(this, _args);
                             }

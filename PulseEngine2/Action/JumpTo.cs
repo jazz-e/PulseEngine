@@ -13,20 +13,20 @@ namespace PulseEngine.Action
         Entity _parent;
 
         public float Force { get; set; }
-        public bool hasJumped { get; set; }
+        public bool HasJumped { get; set; }
 
         float _peak;
 
         public Jump()
         {
-            hasJumped = false; 
+            HasJumped = false; 
         }
 
         public void Start()
         {
-            if (!hasJumped)
+            if (!HasJumped)
             { 
-                hasJumped = true;
+                HasJumped = true;
                 _peak = _parent.Position.Y - Force;
 
                 if (_peak < 0) _peak = 0;
@@ -35,16 +35,16 @@ namespace PulseEngine.Action
 
         public void Update(GameTime gameTime)
         {
-            if (!hasJumped) return;
+            if (!HasJumped) return;
 
-            if (hasJumped)
+            if (HasJumped)
             {
                 _parent.Velocity.Y -= 0.050f * (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             }
 
             if(_parent.Position.Y <= _peak )
             {
-                hasJumped = false;
+                HasJumped = false;
             }
         }
 

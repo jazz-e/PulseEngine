@@ -53,7 +53,8 @@ namespace PulseEngine.Component.Instance
                 _temp.X = this.Position.X;
                 _temp.Y = this.Position.Y;
             }
-            
+
+            _temp.Initialise();            
             spawnList.Add(_temp);
         }
         

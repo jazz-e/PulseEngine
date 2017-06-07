@@ -36,9 +36,10 @@ namespace PulseEngine.Component.Movement
 
         public void Initialise()
         {
-            surfaceCollision = new SurfaceCollision();
-            surfaceCollision.Penetration = 8;
-
+            surfaceCollision = new SurfaceCollision()
+            {
+                Penetration = 8
+            };
             if (this.tileMap != null)
             {
                 surfaceCollision.Entities = this.tileMap.Tiles;

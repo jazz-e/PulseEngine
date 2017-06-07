@@ -51,12 +51,13 @@ namespace PulseEngine.Component.Collision
 
         public void Update(GameTime gameTime)
         {
-            ScreenAreaArgs _args = new Collision.ScreenAreaArgs();
-            _args.LeftScreen = new List<LeftBy>();
+            ScreenAreaArgs _args = new Collision.ScreenAreaArgs()
+            {
+                LeftScreen = new List<LeftBy>(),
 
-            _args.Attached = this._parent;
-
-            if(_parent !=null)
+                Attached = this._parent
+            };
+            if (_parent !=null)
                 foreach (IEntityUpdateComponent entity in _parent.UpdateComponents)
                     if(entity is BoundingRectangle)
                     {

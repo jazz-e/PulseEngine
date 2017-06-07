@@ -40,9 +40,9 @@ namespace PulseDemoGame
         PlayerController control = new PlayerController();
         Jump jumpTo = new Jump();
         bool hasJumped;
-
-        FollowPath fp = new FollowPath();
         
+        FindPath fp = new FindPath();
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -68,29 +68,16 @@ namespace PulseDemoGame
 
             control.Pressed += Control_Pressed;
             control.Released += Control_Released;
-
-            fp.Speed = 100f;
-            fp.Status = PathStatus.Forward;
-            fp.Loop = true;
             
-            Vector2[] p = new Vector2[]{
-                new Vector2(95, 32), new Vector2(200, 32),
-                new Vector2 (200, 200), new Vector2(64, 200),
-                new Vector2(64,32)
-            };
-
-            fp.Path = p;
-
             entity.AddComponent(bounding);
             entity.AddComponent(control);
             entity.AddComponent(fp);
 
             jumpTo.Force = 34f;
             entity.AddComponent(jumpTo);
-            fp.Initialise();
+            
             eNode.Initialise();
 
-            
             base.Initialize();
         }
 
@@ -129,8 +116,8 @@ namespace PulseDemoGame
             // TODO: use this.Content to load your game content here  
             int[,] map = new int[,] { 
                 { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-                { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-                { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+                { 1, 0, 0, 0, 1, 1, 0, 0, 0, 1 },
+                { 1, 0, 1, 1, 1, 1, 0, 0, 0, 1 },
                 { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
                 { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
                 { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
@@ -156,13 +143,15 @@ namespace PulseDemoGame
 
             gravity.Initialise();
             gravity.surfaceCollision.Penetration = 8;
-
             
+            //Create FindAPath
+            fp.Level = tm;
+            fp.Speed = 100f;
+            fp.Initialise();
 
+            entity.AddComponent(fp);
         }
-
-
-
+        
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// all content.
@@ -184,6 +173,8 @@ namespace PulseDemoGame
                 this.Exit();
 
             tm.Update(gameTime);
+
+            fp.TargetScreenLocation = new Vector2(200, 32);
             
             eNode.Update(gameTime);
             
