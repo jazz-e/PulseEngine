@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>sprite1.bmp</Source>
+      <Name>ball</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\dead_\Documents\Visual Studio 2017\Projects\PulseEngine\PulseDemoGame\PulseDemoGame\bin\x86\Release\Content\ball.xnb</Output>
+      <Time>2017-02-19T13:20:55.5612554+00:00</Time>
+    </Item>
+    <Item>
+      <Source>game-assets-game-background-sidescroller.png</Source>
+      <Name>gameBackground</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\dead_\Documents\Visual Studio 2017\Projects\PulseEngine\PulseDemoGame\PulseDemoGame\bin\x86\Release\Content\gameBackground.xnb</Output>
+      <Time>2017-03-04T07:25:08.0753795+00:00</Time>
+    </Item>
+    <Item>
+      <Source>Image1.bmp</Source>
+      <Name>Image1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\dead_\Documents\Visual Studio 2017\Projects\PulseEngine\PulseDemoGame\PulseDemoGame\bin\x86\Release\Content\Image1.xnb</Output>
+      <Time>2017-03-04T07:25:08.0439125+00:00</Time>
+    </Item>
+    <Item>
+      <Source>globe.png</Source>
+      <Name>globe</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\dead_\Documents\Visual Studio 2017\Projects\PulseEngine\PulseDemoGame\PulseDemoGame\bin\x86\Release\Content\globe.xnb</Output>
+      <Time>2013-09-03T12:45:48+01:00</Time>
+    </Item>
+    <Item>
+      <Source>goldBlock.png</Source>
+      <Name>goldBlock</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\dead_\Documents\Visual Studio 2017\Projects\PulseEngine\PulseDemoGame\PulseDemoGame\bin\x86\Release\Content\goldBlock.xnb</Output>
+      <Time>2013-09-03T12:39:18+01:00</Time>
+    </Item>
+    <Item>
+      <Source>grassCenterBlock.png</Source>
+      <Name>grassCenterBlock</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\dead_\Documents\Visual Studio 2017\Projects\PulseEngine\PulseDemoGame\PulseDemoGame\bin\x86\Release\Content\grassCenterBlock.xnb</Output>
+      <Time>2013-09-03T12:42:58+01:00</Time>
+    </Item>
+    <Item>
+      <Source>grassLeftBlock.png</Source>
+      <Name>grassLeftBlock</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\dead_\Documents\Visual Studio 2017\Projects\PulseEngine\PulseDemoGame\PulseDemoGame\bin\x86\Release\Content\grassLeftBlock.xnb</Output>
+      <Time>2013-09-03T12:42:00+01:00</Time>
+    </Item>
+    <Item>
+      <Source>grassRightBlock.png</Source>
+      <Name>grassRightBlock</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\dead_\Documents\Visual Studio 2017\Projects\PulseEngine\PulseDemoGame\PulseDemoGame\bin\x86\Release\Content\grassRightBlock.xnb</Output>
+      <Time>2013-09-03T12:43:50+01:00</Time>
+    </Item>
+    <Item>
+      <Source>mushroom.png</Source>
+      <Name>mushroom</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\dead_\Documents\Visual Studio 2017\Projects\PulseEngine\PulseDemoGame\PulseDemoGame\bin\x86\Release\Content\mushroom.xnb</Output>
+      <Time>2013-09-03T12:45:02+01:00</Time>
+    </Item>
+    <Item>
+      <Source>SpriteFont1.spritefont</Source>
+      <Name>SpriteFont1</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\dead_\Documents\Visual Studio 2017\Projects\PulseEngine\PulseDemoGame\PulseDemoGame\bin\x86\Release\Content\SpriteFont1.xnb</Output>
+      <Time>2017-02-22T01:37:28.4769893+00:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <ContentProjectGUID>{E01BA1B1-E278-4844-B79B-B850D0B0CC65}</ContentProjectGUID>
+      <TargetPlatform>Windows</TargetPlatform>
+      <TargetProfile>Reach</TargetProfile>
+      <BuildConfiguration>Release</BuildConfiguration>
+      <CompressContent>true</CompressContent>
+      <RootDirectory>C:\Users\dead_\Documents\Visual Studio 2017\Projects\PulseEngine\PulseDemoGame\PulseDemoGameContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\dead_\Documents\Visual Studio 2017\Projects\PulseEngine\PulseDemoGame\PulseDemoGame\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\dead_\Documents\Visual Studio 2017\Projects\PulseEngine\PulseDemoGame\PulseDemoGame\obj\x86\Release\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\dead_\Documents\Visual Studio 2017\Projects\PulseEngine\PulseDemoGame\PulseDemoGame\bin\x86\Release\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2011-09-01T16:22:30+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2011-09-01T16:22:30+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2011-09-01T16:22:30+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2011-09-01T16:22:30+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2011-09-01T16:22:30+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2011-09-01T16:22:30+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\WINDOWS\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2017-05-28T12:16:55.9855279+01:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>

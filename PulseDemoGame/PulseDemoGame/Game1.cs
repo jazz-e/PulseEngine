@@ -43,6 +43,9 @@ namespace PulseDemoGame
         
         FindPath fp = new FindPath();
 
+        PulseEngine.Objects.Actor act =
+            new PulseEngine.Objects.Actor();
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -102,8 +105,7 @@ namespace PulseDemoGame
             { jumpTo.Start(); hasJumped = true; }
 
         }
-
-
+        
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
@@ -115,12 +117,13 @@ namespace PulseDemoGame
 
             // TODO: use this.Content to load your game content here  
             int[,] map = new int[,] { 
-                { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-                { 1, 0, 0, 0, 1, 1, 0, 0, 0, 1 },
-                { 1, 0, 1, 1, 1, 1, 0, 0, 0, 1 },
-                { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-                { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-                { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
+                { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+                { 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
+                { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+                { 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1 },
+                { 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1 },
+                { 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
+                { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
             };
 
             tm.TileName.Add("ball");
@@ -150,6 +153,9 @@ namespace PulseDemoGame
             fp.Initialise();
 
             entity.AddComponent(fp);
+
+            act.Load(this.Content, "globe");
+            act.actor.AddComponent(control);
         }
         
         /// <summary>
@@ -174,7 +180,7 @@ namespace PulseDemoGame
 
             tm.Update(gameTime);
 
-            fp.TargetScreenLocation = new Vector2(200, 32);
+            fp.TargetScreenLocation = new Vector2(200, 132);
             
             eNode.Update(gameTime);
             
@@ -201,7 +207,9 @@ namespace PulseDemoGame
             // ----------------------------------------------
             spriteBatch.DrawString(spriteFont, "FPS: " 
                 + frameRate.ToString(), new Vector2(0, 0), Color.White);
-            
+
+            act.Draw(spriteBatch);
+
             spriteBatch.End();
 
             base.Draw(gameTime);

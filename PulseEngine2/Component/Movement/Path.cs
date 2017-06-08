@@ -147,7 +147,8 @@ namespace PulseEngine.Component.Movement
         {
             if (_path == null)
             {
-               if(FindAPath().Count == 0) return;
+                FindAPath();
+               if (_path == null) return;
             }
             
             if (_path.Count != _index)
@@ -274,7 +275,7 @@ namespace PulseEngine.Component.Movement
         //Get ID from Grid reference 
         public int GetGridID(Vector2 gridReference)
         {
-            return ((int)gridReference.X + (int)gridReference.Y * _columns);
+            return ((int)gridReference.X%_columns + (int)gridReference.Y*_columns);
         }
 
         //Get Grid Reference by ID 
@@ -336,8 +337,7 @@ namespace PulseEngine.Component.Movement
             int DownId = currentSquare.Identification + _columns;
             int LeftId = currentSquare.Identification - 1;
             
-            if ((GetGridReference(UpId).X == currentSquare.Location.X && 
-                GetGridReference(UpId).Y < currentSquare.Location.Y) && IsFree(GetGridReference(UpId))) 
+            if (IsFree(GetGridReference(UpId))) 
             {
                 adjacentSquare = new SquareNode()
                 {
@@ -353,8 +353,7 @@ namespace PulseEngine.Component.Movement
                 if ( _index == -1)
                     AdjacentSquares.Add(adjacentSquare);
             }
-            if ((GetGridReference(RightId).Y == currentSquare.Location.Y
-                && GetGridReference(RightId).X > currentSquare.Location.X) && IsFree(GetGridReference(RightId)))
+            if (IsFree(GetGridReference(RightId)))
             {
                 adjacentSquare = new SquareNode()
                 {
@@ -370,8 +369,7 @@ namespace PulseEngine.Component.Movement
                 if (_index == -1)
                     AdjacentSquares.Add(adjacentSquare);
             }
-            if ((GetGridReference(DownId).X == currentSquare.Location.X
-                && GetGridReference(DownId).Y > currentSquare.Location.Y) && IsFree(GetGridReference(DownId)))
+            if (IsFree(GetGridReference(DownId)))
             {
                 adjacentSquare = new SquareNode()
                 {
@@ -386,8 +384,7 @@ namespace PulseEngine.Component.Movement
                 if (_index == -1)
                     AdjacentSquares.Add(adjacentSquare);
             }
-            if ((GetGridReference(LeftId).Y == currentSquare.Location.Y
-                && GetGridReference(LeftId).X < currentSquare.Location.X) && IsFree(GetGridReference(LeftId)))
+            if (IsFree(GetGridReference(LeftId)))
             {
                 adjacentSquare = new SquareNode()
                 {
@@ -410,6 +407,7 @@ namespace PulseEngine.Component.Movement
         private bool IsFree(Vector2 gridReference)
         {
             int index = GetGridID(gridReference);
+
             if(this.Level != null && this.Level.Tiles.Count > 0 && index >=0)
             if (this.Level.Tiles[index].AssetName == "_Blank_")
                 return true;
