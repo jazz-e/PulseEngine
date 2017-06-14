@@ -67,6 +67,8 @@ namespace PulseDemoGame
 
             control.AddKeyBinding(Keys.A, MovementState.Left);
             control.AddKeyBinding(Keys.D, MovementState.Right);
+            control.AddKeyBinding(Keys.W, MovementState.Up);
+            control.AddKeyBinding(Keys.S, MovementState.Down);
             control.AddKeyBinding(Keys.Space, MovementState.Up);
 
             control.Pressed += Control_Pressed;
@@ -94,12 +96,23 @@ namespace PulseDemoGame
 
         private void Control_Pressed(object sender, PressedArgs e)
         {
-            
-            if (e.Action == MovementState.Left)
+
+            if (e.Action == MovementState.Left && tm.IsFree(new Rectangle((int)e.Attached.X - 2,
+                (int)e.Attached.Y, e.Attached.Width, e.Attached.Height)))
                 e.Attached.X += -2;
 
-            if (e.Action == MovementState.Right)
+            if (e.Action == MovementState.Right && tm.IsFree(new Rectangle((int)e.Attached.X + 2,
+                (int)e.Attached.Y, e.Attached.Width, e.Attached.Height)))
                 e.Attached.X += +2;
+
+            if (e.Action == MovementState.Up && tm.IsFree(new Rectangle((int)e.Attached.X,
+                (int)e.Attached.Y - 2, e.Attached.Width, e.Attached.Height)))
+                e.Attached.Y += -2;
+
+            if (e.Action == MovementState.Down && tm.IsFree(new Rectangle((int)e.Attached.X,
+                (int)e.Attached.Y + 2, e.Attached.Width, e.Attached.Height)))
+                e.Attached.Y += +2;
+
 
             if (e.Action == MovementState.Up && !hasJumped && e.Attached.Velocity.Y == 0)
             { jumpTo.Start(); hasJumped = true; }
@@ -120,9 +133,9 @@ namespace PulseDemoGame
                 { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
                 { 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
                 { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-                { 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1 },
-                { 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1 },
-                { 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
+                { 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1 },
+                { 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1 },
+                { 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1 },
                 { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
             };
 
@@ -156,6 +169,9 @@ namespace PulseDemoGame
 
             act.Load(this.Content, "globe");
             act.actor.AddComponent(control);
+            act.actor.X = 62;
+            act.actor.Y = 62;
+            act.actor.Scale = 0.4f;
         }
         
         /// <summary>
@@ -179,9 +195,10 @@ namespace PulseDemoGame
                 this.Exit();
 
             tm.Update(gameTime);
+            //tm.Offset_X++;
 
             fp.TargetScreenLocation = new Vector2(200, 132);
-            
+
             eNode.Update(gameTime);
             
             base.Update(gameTime);

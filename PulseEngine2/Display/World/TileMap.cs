@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using PulseEngine.Component.Collision;
 using Microsoft.Xna.Framework;
+using PulseEngine.Component.Interfaces;
 
 namespace PulseEngine.Display.World
 {
@@ -113,6 +114,25 @@ namespace PulseEngine.Display.World
                    // _index++;
                 }
 
+        }
+
+        public bool IsFree(Rectangle testBox)
+        {
+            foreach (Entity e in Tiles)
+            {
+                if(e.AssetName != "_Blank_")
+                foreach(IEntityUpdateComponent uc in e.UpdateComponents)
+                {
+                    if (uc is BoundingRectangle)
+                    {
+                        ((BoundingRectangle)uc).UpdateBoxPosition();
+
+                        if(((BoundingRectangle)uc).Box.Intersects(testBox))
+                            return false;
+                    }
+                }
+            }
+            return true;
         }
     }
 }

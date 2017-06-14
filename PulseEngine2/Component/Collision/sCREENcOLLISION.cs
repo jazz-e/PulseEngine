@@ -19,7 +19,7 @@ namespace PulseEngine.Component.Collision
     public delegate void OutScreenArea(object sender, ScreenAreaArgs e);
     public delegate void LeaveScreenArea(object sender, ScreenAreaArgs e);
 
-    public class ScreenCollision : IEntityComponent, IEntityInitialiseComponent, IEntityUpdateComponent
+    public class ScreenCollision : IEntityComponent, IEntityUpdateComponent
     {
         public event InScreenArea OnScreen;
         public event OutScreenArea OffScreen;
@@ -43,12 +43,7 @@ namespace PulseEngine.Component.Collision
         {
             return _parent;
         }
-
-        public void Initialise()
-        {
-            //Do nothing 
-        }
-
+        
         public void Update(GameTime gameTime)
         {
             ScreenAreaArgs _args = new Collision.ScreenAreaArgs()

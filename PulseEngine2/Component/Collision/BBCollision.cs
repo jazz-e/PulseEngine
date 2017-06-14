@@ -35,7 +35,6 @@ namespace PulseEngine.Component.Collision
                     }
             }
         }
-
         public Entity GetOwner()
         {
             return _parent;
